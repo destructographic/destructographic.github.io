@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"><head>
+	<meta charset="utf-8">
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="destructographic.github.io : ">
+	<title>destructographic.com</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script>
+		$(function() {
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+			var theWindow        = $(window),
+			    $bg              = $("#bg"),
+			    aspectRatio      = $bg.width() / $bg.height();
 
-    <title>destructographic</title>
-  </head>
+			function resizeBg() {
 
-  <body>
+				if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
+				    $bg
+				    	.removeClass()
+				    	.addClass('bgheight');
+				} else {
+				    $bg
+				    	.removeClass()
+				    	.addClass('bgwidth');
+				}
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <h1 id="project_title"></h1>
-          <h2 id="project_tagline"></h2>
-        </header>
-    </div>
+			}
 
-    
+			theWindow.resize(function() {
+				resizeBg();
+			}).trigger("resize");
 
-  </body>
+		});
+	</script>
+
+</head>
+
+<body>
+  
+	<img src="https://cloud.githubusercontent.com/assets/7255452/11321011/19ada7a6-9064-11e5-8178-c4c8439e3ab0.gif" id="bg" alt="" class="bgwidth">
+
+</body>
 </html>
