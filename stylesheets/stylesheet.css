@@ -1,7 +1,3 @@
-html { 
-  background: url(https://cloud.githubusercontent.com/assets/7255452/11321011/19ada7a6-9064-11e5-8178-c4c8439e3ab0.gif) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
+#bg { position: fixed; top: 0; left: 0; }
+.bgwidth { width: 100%; }
+.bgheight { height: 100%; }
