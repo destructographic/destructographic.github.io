@@ -15,6 +15,7 @@ body {
 .date-container {
   width: 90vw;
   margin-top: auto;
+  text-align: center;
 }
 
 .date {
@@ -23,7 +24,7 @@ body {
 }
 
 .date-top {
-  font-size: 2em; /* 2 × container's font size */
+  font-size: 16vw;
 }
 
 .slash {
@@ -31,7 +32,7 @@ body {
 }
 
 .date-bottom {
-  font-size: 1em;
+  font-size: 8vw;
 }
 
 .chevron {
