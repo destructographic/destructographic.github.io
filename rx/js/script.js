@@ -1,7 +1,17 @@
 // script.js
 
-// example: log when chevron is clicked
-document.querySelector('.chevron').addEventListener('click', (e) => {
-  e.preventDefault();
-  console.log('chevron clicked');
-});
+function pad(n) {
+  return n.toString().padStart(2, '0');
+}
+
+function renderToday() {
+  const now = new Date();
+  const month = pad(now.getMonth() + 1); // months are zero-based
+  const day = pad(now.getDate());
+  const year = now.getFullYear();
+
+  document.getElementById('date-top').innerHTML = `${month}<span class="slash"> / </span>${day}`;
+  document.getElementById('date-bottom').textContent = year;
+}
+
+renderToday();
