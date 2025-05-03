@@ -15,7 +15,7 @@ body {
 .date-container {
   width: 90vw;
   font-size: 10vw; /* baseline size for scaling child elements */
-  margin-top: auto;
+  margin-top: 2rem;
   text-align: center;
 }
 
