@@ -14,6 +14,7 @@ body {
 
 .date-container {
   width: 90vw;
+  font-size: 10vw; /* baseline size for scaling child elements */
   margin-top: auto;
   text-align: center;
 }
@@ -24,7 +25,7 @@ body {
 }
 
 .date-top {
-  font-size: 16vw;
+  font-size: 1.6em; /* = 16vw relative to full screen */
 }
 
 .slash {
@@ -32,7 +33,7 @@ body {
 }
 
 .date-bottom {
-  font-size: 8vw;
+  font-size: 0.8em; /* = 8vw */
 }
 
 .chevron {
