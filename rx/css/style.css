@@ -66,10 +66,13 @@ body {
   flex: 1;
   background: black;
   color: white;
+  text-align: center;
   border: none;
   padding: 1rem 0;
   font-size: 1rem;
   font-family: inherit;
   cursor: pointer;
   text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
 }
