@@ -10,6 +10,8 @@ body {
   height: 100vh;
   text-align: center;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .date-container {
@@ -19,7 +21,7 @@ body {
   text-align: center;
 }
 
-.date {
+.date-block {
   font-weight: 200;
   letter-spacing: normal;
 }
