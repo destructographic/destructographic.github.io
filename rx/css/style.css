@@ -6,8 +6,9 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif, Arial;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
   position: relative;
   -webkit-font-smoothing: antialiased;
@@ -55,9 +56,9 @@ body {
 .button-container {
   display: flex;
   width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  padding: 1rem;
+  gap: 1rem;
+  box-sizing: border-box;
 }
 
 .action-button {
