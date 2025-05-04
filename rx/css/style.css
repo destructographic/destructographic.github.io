@@ -39,7 +39,7 @@ body {
 }
 
 .chevron {
-  margin-bottom: 2rem;
+  margin-top: 2rem;
   font-size: 3rem;
   cursor: pointer;
   animation: bounce 2s infinite;
@@ -52,13 +52,17 @@ body {
   50% { transform: translateY(10px); }
 }
 
+/* spacer fills vertical space */
+.spacer {
+  flex-grow: 1;
+}
+
 .button-container {
   display: flex;
   width: 100%;
   padding: 1rem;
   gap: 1rem;
   box-sizing: border-box;
-  margin-top: auto;
 }
 
 .action-button {
