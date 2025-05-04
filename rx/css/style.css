@@ -4,12 +4,10 @@ body {
   color: white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif, Arial;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: var(--vh, 100vh);
+  min-height: 100vh;
   text-align: center;
   position: relative;
+  padding-bottom: 80px; /* reserve space for fixed buttons */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,17 +50,16 @@ body {
   50% { transform: translateY(10px); }
 }
 
-/* spacer fills vertical space */
-.spacer {
-  flex-grow: 1;
-}
-
 .button-container {
-  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   padding: 1rem;
   gap: 1rem;
   box-sizing: border-box;
+  display: flex;
+  background: #cc0000;
 }
 
 .action-button {
