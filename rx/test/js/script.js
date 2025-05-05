@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener('orientationchange', setViewportHeightVar);
   setViewportHeightVar();
 
-  // Map of pull rules by weekday
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const today = new Date();
   const realDay = dayNames[today.getDay()];
@@ -51,22 +50,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const block1 = document.getElementById("date-block-1");
     const block2 = document.getElementById("date-block-2");
     const bigX = document.getElementById("no-pull-x");
+    const icon = bigX.querySelector("svg");
+
+    // Reset state
+    block1.classList.add("hidden");
+    block2.classList.add("hidden");
+    chevron.classList.add("hidden");
+    bigX.classList.add("hidden");
+    if (icon) icon.classList.remove("wiggle");
 
     if (config.daysAgo.length === 0) {
       instructionEl.innerHTML = `Today is ${dayName}.<br>No meds pulled today.`;
-      block1.classList.add("hidden");
-      block2.classList.add("hidden");
-      chevron.classList.add("hidden");
       bigX.classList.remove("hidden");
+      if (icon) icon.classList.add("wiggle");
     } else if (config.daysAgo.length === 1) {
       instructionEl.innerHTML = `Today is ${dayName}.<br>We need to pull meds that were filled on:`;
       const date1 = new Date();
       date1.setDate(date1.getDate() - config.daysAgo[0]);
       renderDate(date1, 1);
       block1.classList.remove("hidden");
-      block2.classList.add("hidden");
-      chevron.classList.add("hidden");
-      bigX.classList.add("hidden");
     } else if (config.daysAgo.length === 2) {
       instructionEl.innerHTML = `Today is ${dayName}.<br>We need to pull meds that were filled between:`;
       const date1 = new Date();
@@ -78,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
       block1.classList.remove("hidden");
       block2.classList.remove("hidden");
       chevron.classList.remove("hidden");
-      bigX.classList.add("hidden");
     }
   }
 
