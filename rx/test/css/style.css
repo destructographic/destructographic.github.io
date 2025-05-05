@@ -64,8 +64,10 @@ body {
 }
 
 .no-entry-icon {
-  width: 30vw;
-  height: 30vw;
+  width: 20vmin;
+  height: 20vmin;
+  max-width: 120px;
+  max-height: 120px;
   display: block;
   margin: 0 auto;
 }
