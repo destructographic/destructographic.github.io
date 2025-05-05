@@ -1,4 +1,4 @@
-console.log("JS file loaded");
+console.log(String("JS file loaded"));
 
 document.addEventListener("DOMContentLoaded", () => {
   // fix mobile viewport height issues
