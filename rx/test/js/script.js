@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderDate(date1, 1);
       block1.classList.remove("hidden");
     } else if (config.daysAgo.length === 2) {
-      instructionEl.innerHTML = `Today is ${dayName}.<br>We need to pull meds that were filled between:`;
+      instructionEl.innerHTML = `Today is ${dayName}.<br>We need to pull meds filled between:`;
       const date1 = new Date();
       const date2 = new Date();
       date1.setDate(date1.getDate() - config.daysAgo[0]);
