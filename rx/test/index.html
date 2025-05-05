@@ -3,30 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Landing</title>
+  <title>Rx Pull Schedule</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="pull-instruction" id="pull-instruction"></div>
+  <div id="pull-wrapper" class="pull-wrapper">
+    <div class="pull-instruction" id="pull-instruction"></div>
 
- <div id="no-pull-x" class="no-pull-x hidden">
-  <svg viewBox="0 0 100 100" class="no-entry-icon">
-    <circle cx="50" cy="50" r="45" stroke="white" stroke-width="10" fill="none" />
-    <line x1="25" y1="75" x2="75" y2="25" stroke="white" stroke-width="10" />
-  </svg>
-</div>
-
-  <div class="date-container">
-    <div class="date-block" id="date-block-1">
-      <div class="date-top" id="date-top-1">--<span class="slash"> / </span>--</div>
-      <div class="date-bottom" id="date-bottom-1">----</div>
+    <div id="no-pull-x" class="no-pull-x hidden">
+      <svg viewBox="0 0 100 100" class="no-entry-icon">
+        <circle cx="50" cy="50" r="45" stroke="white" stroke-width="10" fill="none" />
+        <line x1="25" y1="75" x2="75" y2="25" stroke="white" stroke-width="10" />
+      </svg>
     </div>
 
-    <div class="chevron hidden" id="chevron">&#x25BC;</div>
+    <div class="date-container">
+      <div class="date-block" id="date-block-1">
+        <div class="date-top" id="date-top-1">--<span class="slash"> / </span>--</div>
+        <div class="date-bottom" id="date-bottom-1">----</div>
+      </div>
 
-    <div class="date-block hidden" id="date-block-2">
-      <div class="date-top" id="date-top-2">--<span class="slash"> / </span>--</div>
-      <div class="date-bottom" id="date-bottom-2">----</div>
+      <div class="chevron hidden" id="chevron">&#x25BC;</div>
+
+      <div class="date-block hidden" id="date-block-2">
+        <div class="date-top" id="date-top-2">--<span class="slash"> / </span>--</div>
+        <div class="date-bottom" id="date-bottom-2">----</div>
+      </div>
     </div>
   </div>
 
@@ -35,6 +37,6 @@
     <a href="table2" class="action-button">?</a>
   </div>
 
-  <script src="js/script.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>
