@@ -1,3 +1,5 @@
+console.log("JS file loaded");
+
 document.addEventListener("DOMContentLoaded", () => {
   // fix mobile viewport height issues
   function setViewportHeightVar() {
