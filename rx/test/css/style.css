@@ -7,9 +7,18 @@ body {
   min-height: 100vh;
   text-align: center;
   position: relative;
-  padding-bottom: 80px; /* reserve space for fixed buttons */
+  padding-bottom: 80px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.pull-instruction {
+  font-size: 1.2rem;
+  color: black;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  line-height: 1.4;
 }
 
 .date-container {
@@ -50,6 +59,11 @@ body {
   50% { transform: translateY(10px); }
 }
 
+.no-pull-x {
+  font-size: 10vw;
+  margin: 2rem auto;
+}
+
 .button-container {
   position: fixed;
   bottom: 0;
@@ -75,4 +89,8 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
+}
+
+.hidden {
+  display: none;
 }
