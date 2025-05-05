@@ -12,6 +12,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pull-instruction {
+  font-size: 0.9rem;
+  color: black;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 .date-container {
   width: 90vw;
   font-size: 10vw;
