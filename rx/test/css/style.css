@@ -60,9 +60,14 @@ body {
 }
 
 .no-pull-x {
-  font-size: 10vw;
   margin: 2rem auto;
-  color: white;
+}
+
+.no-entry-icon {
+  width: 30vw;
+  height: 30vw;
+  display: block;
+  margin: 0 auto;
 }
 
 .button-container {
