@@ -27,5 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('date-bottom').textContent = year;
   }
 
+  // render current day of week in pull-instruction
+  function renderDayOfWeek() {
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const today = new Date();
+    const dayOfWeek = dayNames[today.getDay()];
+    const el = document.getElementById('pull-instruction');
+    if (el) {
+      el.textContent = `Today is ${dayOfWeek}. We need to pull meds that were filled on:`;
+    }
+  }
+
   renderPastDate();
+  renderDayOfWeek();
 });
