@@ -7,20 +7,29 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div class="pull-instruction" id="pull-instruction"></div>
+
+  <div id="no-pull-x" class="no-pull-x hidden">❌</div>
+
   <div class="date-container">
-    <div class="date-block">
-      <div class="date-top" id="date-top">--<span class="slash"> / </span>--</div>
-      <div class="date-bottom" id="date-bottom">----</div>
+    <div class="date-block" id="date-block-1">
+      <div class="date-top" id="date-top-1">--<span class="slash"> / </span>--</div>
+      <div class="date-bottom" id="date-bottom-1">----</div>
+    </div>
+
+    <div class="chevron hidden" id="chevron">&#x25BC;</div>
+
+    <div class="date-block hidden" id="date-block-2">
+      <div class="date-top" id="date-top-2">--<span class="slash"> / </span>--</div>
+      <div class="date-bottom" id="date-bottom-2">----</div>
     </div>
   </div>
-
-  <div class="chevron">&#x25BC;</div>
 
   <div class="button-container">
     <a href="table2" class="action-button">info</a>
     <a href="table2" class="action-button">?</a>
   </div>
 
-  <script src="js/script.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>
