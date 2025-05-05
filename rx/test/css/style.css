@@ -12,6 +12,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pull-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--vh, 1vh) * 100 - 120px);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
 .pull-instruction {
   font-size: 1.2rem;
   color: black;
@@ -24,7 +34,7 @@ body {
 .date-container {
   width: 90vw;
   font-size: 10vw;
-  margin: 2rem auto 0 auto;
+  margin-top: 1rem;
   text-align: center;
 }
 
