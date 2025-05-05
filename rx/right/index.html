@@ -1,14 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Pull Schedule</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rx Pull Schedule Simulation</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      border: 1px solid #aaa;
+    }
+
+    a {
+      text-decoration: none;
+      color: #cc0000;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      color: #cc0000;
+      margin-bottom: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <main>
-    
-  </main>
+  <h1>Select a Day</h1>
+  <table>
+    <thead>
+      <tr><th>Day</th><th>Link</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Sunday</td><td><a href="/rx/?day=sun">/rx/?day=sun</a></td></tr>
+      <tr><td>Monday</td><td><a href="/rx/?day=mon">/rx/?day=mon</a></td></tr>
+      <tr><td>Tuesday</td><td><a href="/rx/?day=tue">/rx/?day=tue</a></td></tr>
+      <tr><td>Wednesday</td><td><a href="/rx/?day=wed">/rx/?day=wed</a></td></tr>
+      <tr><td>Thursday</td><td><a href="/rx/?day=thu">/rx/?day=thu</a></td></tr>
+      <tr><td>Friday</td><td><a href="/rx/?day=fri">/rx/?day=fri</a></td></tr>
+      <tr><td>Saturday</td><td><a href="/rx/?day=sat">/rx/?day=sat</a></td></tr>
+    </tbody>
+  </table>
 </body>
 </html>
