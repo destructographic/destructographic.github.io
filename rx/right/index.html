@@ -3,57 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rx Pull Schedule Simulation</title>
+  <title>Rx Pull Simulator</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    table {
-      margin: 0 auto;
-      border-collapse: collapse;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    th, td {
-      padding: 0.75rem 1rem;
-      border: 1px solid #aaa;
-    }
-
-    a {
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    h1 {
-      color: #cc0000;
-      margin-bottom: 2rem;
-    }
-  </style>
 </head>
 <body>
-  <h1>Simulate a Day</h1>
-  <table>
-    <thead>
-      <tr><th>Day</th><th>Link</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Sunday</td><td><a href="/rx/?day=sun">/rx/?day=sun</a></td></tr>
-      <tr><td>Monday</td><td><a href="/rx/?day=mon">/rx/?day=mon</a></td></tr>
-      <tr><td>Tuesday</td><td><a href="/rx/?day=tue">/rx/?day=tue</a></td></tr>
-      <tr><td>Wednesday</td><td><a href="/rx/?day=wed">/rx/?day=wed</a></td></tr>
-      <tr><td>Thursday</td><td><a href="/rx/?day=thu">/rx/?day=thu</a></td></tr>
-      <tr><td>Friday</td><td><a href="/rx/?day=fri">/rx/?day=fri</a></td></tr>
-      <tr><td>Saturday</td><td><a href="/rx/?day=sat">/rx/?day=sat</a></td></tr>
-    </tbody>
-  </table>
+  <h1>Simulate a day</h1>
+  <div class="button-container">
+    <a href="/rx/?day=Sunday" class="day-button">Sunday</a>
+    <a href="/rx/?day=Monday" class="day-button">Monday</a>
+    <a href="/rx/?day=Tuesday" class="day-button">Tuesday</a>
+    <a href="/rx/?day=Wednesday" class="day-button">Wednesday</a>
+    <a href="/rx/?day=Thursday" class="day-button">Thursday</a>
+    <a href="/rx/?day=Friday" class="day-button">Friday</a>
+    <a href="/rx/?day=Saturday" class="day-button">Saturday</a>
+  </div>
 </body>
 </html>
