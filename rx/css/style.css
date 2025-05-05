@@ -7,24 +7,34 @@ body {
   min-height: 100vh;
   text-align: center;
   position: relative;
-  padding-bottom: 80px; /* reserve space for fixed buttons */
+  padding-bottom: 80px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.pull-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--vh, 1vh) * 100 - 120px);
+  padding: 2rem 1rem 1rem; /* add top margin here */
+  box-sizing: border-box;
+}
+
 .pull-instruction {
-  font-size: 1.2rem; /* was 0.9rem */
+  font-size: 1.2rem;
   color: black;
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 1.8rem; /* was 5px, now ~30px */
   line-height: 1.4;
 }
 
 .date-container {
   width: 90vw;
   font-size: 10vw;
-  margin: 2rem auto 0 auto;
+  margin-top: 1rem;
   text-align: center;
 }
 
@@ -46,17 +56,46 @@ body {
 }
 
 .chevron {
-  margin-top: 2rem;
-  font-size: 3rem;
-  cursor: pointer;
+  margin: 1.5rem 0;
   animation: bounce 2s infinite;
-  color: white;
-  text-decoration: none;
+}
+
+.chevron-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: block;
+  margin: 0 auto;
+  fill: white;
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(10px); }
+}
+
+.no-pull-x {
+  margin: 2rem auto;
+}
+
+.no-entry-icon {
+  width: 20vmin;
+  height: 20vmin;
+  max-width: 120px;
+  max-height: 120px;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes wiggle {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-5deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wiggle {
+  animation: wiggle 2s ease-in-out infinite;
 }
 
 .button-container {
@@ -84,4 +123,8 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
+}
+
+.hidden {
+  display: none;
 }
