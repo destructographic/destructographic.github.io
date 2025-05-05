@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Optional override via query string, e.g. ?day=Thursday
+  const params = new URLSearchParams(window.location.search);
+  const queryOverride = params.get("day");
+
   // Fix mobile viewport height issues
   function setViewportHeightVar() {
     const vh = window.innerHeight * 0.01;
@@ -9,19 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener('orientationchange', setViewportHeightVar);
   setViewportHeightVar();
 
-  // Mapping of day names to pull rules
+  // Map of pull rules by weekday
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const today = new Date();
-  const currentDay = dayNames[today.getDay()];
+  const realDay = dayNames[today.getDay()];
+  const currentDay = queryOverride || realDay;
 
   const pullSchedule = {
     Sunday:    { daysAgo: [13] },
     Monday:    { daysAgo: [13] },
     Tuesday:   { daysAgo: [13] },
     Wednesday: { daysAgo: [13] },
-    Thursday:  { daysAgo: [13, 12] },  // fixed: double pull day
+    Thursday:  { daysAgo: [13, 12] },
     Friday:    { daysAgo: [13] },
-    Saturday:  { daysAgo: [] }         // no pull day
+    Saturday:  { daysAgo: [] }
   };
 
   const pad = (n) => n.toString().padStart(2, '0');
