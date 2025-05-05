@@ -20,8 +20,9 @@ h1 {
 }
 
 .day-button {
-  background-color: black;
+  background-color: transparent;
   color: white;
+  border: 2px solid black;
   padding: 1rem 2rem;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -29,8 +30,10 @@ h1 {
   width: 80%;
   max-width: 300px;
   display: block;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .day-button:hover {
-  opacity: 0.85;
+  background-color: black;
+  color: white;
 }
