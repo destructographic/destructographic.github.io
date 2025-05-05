@@ -27,7 +27,7 @@ body {
   color: black;
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 1.8rem; /* was 5px, now ~30px */
   line-height: 1.4;
 }
 
