@@ -37,3 +37,9 @@ h1 {
   background-color: black;
   color: white;
 }
+
+.note {
+  font-size: 0.8rem;
+  color: black;
+  margin-top: 3rem;
+}
