@@ -16,9 +16,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;  /* was center */
   min-height: calc(var(--vh, 1vh) * 100 - 120px);
-  padding: 2rem 1rem 1rem; /* add top margin here */
+  padding: 2.5rem 1rem 1rem;
   box-sizing: border-box;
 }
 
