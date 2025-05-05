@@ -18,7 +18,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: calc(var(--vh, 1vh) * 100 - 120px);
-  padding: 1rem;
+  padding: 2rem 1rem 1rem; /* add top margin here */
   box-sizing: border-box;
 }
 
