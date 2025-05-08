@@ -7,31 +7,13 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div id="pull-wrapper" class="pull-wrapper">
+  <div class="pull-wrapper">
     <div class="pull-instruction" id="pull-instruction"></div>
 
-    <div id="no-pull-x" class="no-pull-x hidden">
-      <svg viewBox="0 0 100 100" class="no-entry-icon">
-        <circle cx="50" cy="50" r="45" stroke="white" stroke-width="10" fill="none" />
-        <line x1="25" y1="75" x2="75" y2="25" stroke="white" stroke-width="10" />
-      </svg>
-    </div>
-
     <div class="date-container">
-      <div class="date-block" id="date-block-1">
-        <div class="date-top" id="date-top-1">--<span class="slash"> / </span>--</div>
-        <div class="date-bottom" id="date-bottom-1">----</div>
-      </div>
-
-      <div class="chevron hidden" id="chevron">
-        <svg viewBox="0 0 24 24" class="chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="white">
-          <path d="M12 16.5l-8-8 1.4-1.4L12 13.7l6.6-6.6 1.4 1.4z"/>
-        </svg>
-      </div>
-
-      <div class="date-block hidden" id="date-block-2">
-        <div class="date-top" id="date-top-2">--<span class="slash"> / </span>--</div>
-        <div class="date-bottom" id="date-bottom-2">----</div>
+      <div class="date-block">
+        <div class="date-top" id="date-top">--<span class="slash"> / </span>--</div>
+        <div class="date-bottom" id="date-bottom">----</div>
       </div>
     </div>
   </div>
@@ -41,6 +23,6 @@
     <a href="right" class="action-button">?</a>
   </div>
 
-  <script src="js/script.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>
