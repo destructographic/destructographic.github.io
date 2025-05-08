@@ -62,6 +62,19 @@ body {
   font-size: 0.8em;
 }
 
+.pull-image {
+  margin-top: 1.5rem;
+  max-width: 90vw;
+  display: flex;
+  justify-content: center;
+}
+
+.pull-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .button-container {
   position: fixed;
   bottom: 0;
