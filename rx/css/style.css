@@ -42,7 +42,6 @@ body {
 .date-container {
   width: 90vw;
   font-size: 10vw;
-  margin-top: 1rem;
   text-align: center;
 }
 
@@ -61,49 +60,6 @@ body {
 
 .date-bottom {
   font-size: 0.8em;
-}
-
-.chevron {
-  margin: 1.5rem 0;
-  animation: bounce 2s infinite;
-}
-
-.chevron-icon {
-  width: 1.6rem;
-  height: 1.6rem;
-  display: block;
-  margin: 0 auto;
-  fill: var(--white);
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(10px); }
-}
-
-.no-pull-x {
-  margin: 2rem auto;
-}
-
-.no-entry-icon {
-  width: 20vmin;
-  height: 20vmin;
-  max-width: 120px;
-  max-height: 120px;
-  display: block;
-  margin: 0 auto;
-}
-
-@keyframes wiggle {
-  0%   { transform: rotate(0deg); }
-  25%  { transform: rotate(-5deg); }
-  50%  { transform: rotate(0deg); }
-  75%  { transform: rotate(5deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.wiggle {
-  animation: wiggle 2s ease-in-out infinite;
 }
 
 .button-container {
@@ -131,8 +87,4 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
-}
-
-.hidden {
-  display: none;
 }
