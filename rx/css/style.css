@@ -91,11 +91,23 @@ body {
   display: block;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid var(--white);
-  width: 80%;
+/* Chevron separator */
+.chevron-divider {
   margin: 2.5rem auto;
+  animation: bounce 2s infinite;
+}
+
+.chevron-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: block;
+  margin: 0 auto;
+  fill: var(--white);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
 }
 
 .button-container {
