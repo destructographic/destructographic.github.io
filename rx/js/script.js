@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Fix mobile viewport height issues
   function setViewportHeightVar() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -34,17 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("greeting").textContent =
     `Today is ${dayOfWeek}, ${monthName} ${dayOfMonth}${suffix}.`;
 
-  document.getElementById("instructions").textContent =
+  // Pull Date (13 days ago)
+  document.getElementById("instructions-pull").textContent =
     `We need to pull meds that were filled on:`;
 
   const pullDate = new Date();
   pullDate.setDate(pullDate.getDate() - 13);
-
   const pad = (n) => n.toString().padStart(2, '0');
-  const month = pad(pullDate.getMonth() + 1);
-  const day = pad(pullDate.getDate());
-  const year = pullDate.getFullYear();
+  document.getElementById("date-pull-top").innerHTML =
+    `${pad(pullDate.getMonth() + 1)}<span class="slash"> / </span>${pad(pullDate.getDate())}`;
+  document.getElementById("date-pull-bottom").textContent = pullDate.getFullYear();
 
-  document.getElementById("date-top").innerHTML = `${month}<span class="slash"> / </span>${day}`;
-  document.getElementById("date-bottom").textContent = year;
+  // RTS Date (14 days ago)
+  document.getElementById("instructions-rts").textContent =
+    `We need to RTS medications filled on:`;
+
+  const rtsDate = new Date();
+  rtsDate.setDate(rtsDate.getDate() - 14);
+  document.getElementById("date-rts-top").innerHTML =
+    `${pad(rtsDate.getMonth() + 1)}<span class="slash"> / </span>${pad(rtsDate.getDate())}`;
+  document.getElementById("date-rts-bottom").textContent = rtsDate.getFullYear();
 });
