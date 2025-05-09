@@ -50,6 +50,13 @@ body {
   line-height: 1.4;
 }
 
+.verb-highlight {
+  background: var(--charcoal);
+  color: var(--white);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
 .date-container {
   width: 90vw;
   font-size: 10vw;
