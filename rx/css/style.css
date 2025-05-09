@@ -19,15 +19,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.greeting {
+.header {
   position: sticky;
   top: 0;
   background: var(--cvs-red);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 1rem;
+  z-index: 10;
+}
+
+.greeting {
   font-size: 1rem;
   font-weight: 500;
   color: var(--charcoal);
-  z-index: 10;
+  text-align: left;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 20px;
+  cursor: default;
+}
+
+.hamburger .bar {
+  width: 100%;
+  height: 3px;
+  background: var(--charcoal);
+  border-radius: 2px;
 }
 
 .pull-wrapper {
@@ -98,7 +122,6 @@ body {
   display: block;
 }
 
-/* Chevron separator */
 .chevron-divider {
   margin: 2.5rem auto;
   animation: bounce 2s infinite;
