@@ -58,17 +58,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 2rem 1rem 1rem;
+  padding: 1.5rem 1rem;
   box-sizing: border-box;
 }
 
 .instructions {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--charcoal);
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 1.8rem;
+  margin: 0.5rem 0 0.8rem;
   line-height: 1.4;
 }
 
@@ -81,8 +80,9 @@ body {
 
 .date-container {
   width: 90vw;
-  font-size: 10vw;
+  font-size: 9vw;
   text-align: center;
+  margin-bottom: 0.8rem;
 }
 
 .date-block {
@@ -91,7 +91,7 @@ body {
 }
 
 .date-top {
-  font-size: 1.6em;
+  font-size: 1.5em;
 }
 
 .slash {
@@ -104,7 +104,7 @@ body {
 
 .pull-image,
 .rts-image {
-  margin-top: 1.5rem;
+  margin: 0.5rem 0 1rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -115,19 +115,19 @@ body {
 .pull-image img,
 .rts-image img {
   width: 100%;
-  max-width: 400px;
+  max-width: 320px;
   height: auto;
   display: block;
 }
 
 .chevron-divider {
-  margin: 2.5rem auto;
+  margin: 1.2rem auto;
   animation: bounce 2s infinite;
 }
 
 .chevron-icon {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.4rem;
+  height: 1.4rem;
   display: block;
   margin: 0 auto;
   fill: var(--white);
