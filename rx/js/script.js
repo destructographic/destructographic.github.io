@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("greeting").textContent =
     `Today is ${dayOfWeek}, ${monthName} ${dayOfMonth}${suffix}.`;
 
-  // Pull Instruction
+  // Pull Section
   document.getElementById("instructions-pull").innerHTML =
     `We need to <span class="verb-highlight">pull</span> meds that were filled on:`;
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `${pad(pullDate.getMonth() + 1)}<span class="slash"> / </span>${pad(pullDate.getDate())}`;
   document.getElementById("date-pull-bottom").textContent = pullDate.getFullYear();
 
-  // RTS Instruction
+  // RTS Section
   document.getElementById("instructions-rts").innerHTML =
     `We need to <span class="verb-highlight">RTS</span> meds that were filled on:`;
 
