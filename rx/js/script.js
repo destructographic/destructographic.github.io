@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `Today is ${dayOfWeek}, ${monthName} ${dayOfMonth}${suffix}.`;
 
   // Pull Date (13 days ago)
-  document.getElementById("instructions-pull").textContent =
+  document.getElementById("instructions-pull").innerHTML =
     `We need to <strong>pull</strong> meds that were filled on:`;
 
   const pullDate = new Date();
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("date-pull-bottom").textContent = pullDate.getFullYear();
 
   // RTS Date (14 days ago)
-  document.getElementById("instructions-rts").textContent =
+  document.getElementById("instructions-rts").innerHTML =
     `We need to <strong>RTS</strong> medications filled on:`;
 
   const rtsDate = new Date();
