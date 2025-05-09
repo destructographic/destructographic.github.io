@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("greeting").textContent =
     `Today is ${dayOfWeek}, ${monthName} ${dayOfMonth}${suffix}.`;
 
-  // Pull Date (13 days ago)
+  // Pull Instruction
   document.getElementById("instructions-pull").innerHTML =
     `We need to <span class="verb-highlight">pull</span> meds that were filled on:`;
 
@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
     `${pad(pullDate.getMonth() + 1)}<span class="slash"> / </span>${pad(pullDate.getDate())}`;
   document.getElementById("date-pull-bottom").textContent = pullDate.getFullYear();
 
-  // RTS Date (14 days ago)
+  // RTS Instruction
   document.getElementById("instructions-rts").innerHTML =
-    `We need to <span class="verb-highlight">RTS</span> medications filled on:`;
+    `We need to <span class="verb-highlight">RTS</span> meds that were filled on:`;
 
   const rtsDate = new Date();
   rtsDate.setDate(rtsDate.getDate() - 14);
