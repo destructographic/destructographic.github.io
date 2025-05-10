@@ -3,54 +3,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
-
   window.addEventListener('resize', setViewportHeightVar);
   window.addEventListener('orientationchange', setViewportHeightVar);
   setViewportHeightVar();
 
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
   ];
-
-  function getDateSuffix(day) {
-    if (day >= 11 && day <= 13) return "th";
-    switch (day % 10) {
-      case 1: return "st";
-      case 2: return "nd";
-      case 3: return "rd";
-      default: return "th";
-    }
+  function getSuffix(d) {
+    if (d>=11&&d<=13) return "th";
+    switch(d%10){case1:return"st";case2:return"nd";case3:return"rd";default:return"th";}
   }
-
   const today = new Date();
-  const dayOfWeek = dayNames[today.getDay()];
-  const monthName = monthNames[today.getMonth()];
-  const dayOfMonth = today.getDate();
-  const suffix = getDateSuffix(dayOfMonth);
+  const dow = dayNames[today.getDay()];
+  const mon = monthNames[today.getMonth()];
+  const dom = today.getDate();
+  const suf = getSuffix(dom);
+  document.getElementById("greeting").textContent = `Today is ${dow}, ${mon} ${dom}${suf}.`;
 
-  document.getElementById("greeting").textContent =
-    `Today is ${dayOfWeek}, ${monthName} ${dayOfMonth}${suffix}.`;
+  const pad = n=>n.toString().padStart(2,'0');
 
-  // Pull Section
-  document.getElementById("instructions-pull").innerHTML =
-    `We need to <span class="verb-highlight">PULL</span> meds that were filled on:`;
+  const pd = new Date();
+  pd.setDate(pd.getDate()-13);
+  document.getElementById("date-pull-md").innerHTML =
+    `${pad(pd.getMonth()+1)}<span class="slash"> / </span>${pad(pd.getDate())}`;
 
-  const pullDate = new Date();
-  pullDate.setDate(pullDate.getDate() - 13);
-  const pad = (n) => n.toString().padStart(2, '0');
-  document.getElementById("date-pull-top").innerHTML =
-    `${pad(pullDate.getMonth() + 1)}<span class="slash"> / </span>${pad(pullDate.getDate())}`;
-  document.getElementById("date-pull-bottom").textContent = pullDate.getFullYear();
-
-  // RTS Section
-  document.getElementById("instructions-rts").innerHTML =
-    `We need to <span class="verb-highlight">RTS</span> meds that were filled on:`;
-
-  const rtsDate = new Date();
-  rtsDate.setDate(rtsDate.getDate() - 14);
-  document.getElementById("date-rts-top").innerHTML =
-    `${pad(rtsDate.getMonth() + 1)}<span class="slash"> / </span>${pad(rtsDate.getDate())}`;
-  document.getElementById("date-rts-bottom").textContent = rtsDate.getFullYear();
+  const rd = new Date();
+  rd.setDate(rd.getDate()-14);
+  document.getElementById("date-rts-md").innerHTML =
+    `${pad(rd.getMonth()+1)}<span class="slash"> / </span>${pad(rd.getDate())}`;
 });
