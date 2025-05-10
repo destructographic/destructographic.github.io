@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // mobile vh fix
   function setViewportHeightVar() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const pad = (n) => String(n).padStart(2, '0');
 
-  // Pull date (13 days ago)
+  // Pull date
   const pullDate = new Date();
   pullDate.setDate(pullDate.getDate() - 13);
   const pullMM = pad(pullDate.getMonth()+1);
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("date-pull-md").innerHTML =
     `${pullMM}<span class="slash"> / </span>${pullDD}`;
 
-  // RTS date (14 days ago)
+  // RTS date
   const rtsDate = new Date();
   rtsDate.setDate(rtsDate.getDate() - 14);
   const rtsMM = pad(rtsDate.getMonth()+1);
