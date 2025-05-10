@@ -49,13 +49,24 @@ body {
   flex-direction: row-reverse;
 }
 
+/* Pull & RTS text containers */
 .section-text {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   flex: 1;
-  text-align: left;
   padding: 0 1rem;
+}
+
+/* Pull text: left-aligned */
+.pull-text {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* RTS text: right-aligned */
+.rts-text {
+  align-items: flex-end;
+  text-align: right;
 }
 
 .section-label {
