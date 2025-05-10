@@ -23,22 +23,25 @@ body {
   padding: 1rem;
 }
 
-.pull-card,
+/* PULL layout */
+.pull-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-direction: row;
+}
+
+/* RTS layout: mirror the PULL layout horizontally */
 .rts-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  flex-direction: row-reverse;
 }
 
-.rts-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row-reverse; /* flip the column order */
-  margin-bottom: 1.5rem;
-}
-
+/* Shared text styling */
 .pull-text,
 .rts-text {
   display: flex;
@@ -66,6 +69,7 @@ body {
   vertical-align: middle;
 }
 
+/* Shared image wrapper styling */
 .pull-illustration,
 .rts-illustration {
   flex: 0 0 auto;
@@ -80,6 +84,7 @@ body {
   display: block;
 }
 
+/* Greeting separator styling */
 .greeting-separator {
   width: 100%;
   align-self: stretch;
@@ -100,6 +105,7 @@ body {
   margin: 0 0.75rem;
 }
 
+/* Floating hamburger styling */
 .floating-hamburger {
   position: fixed;
   bottom: 1rem;
