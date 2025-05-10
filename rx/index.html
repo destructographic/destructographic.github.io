@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rx Pull Schedule</title>
-  <link rel="stylesheet" href="css/style.css?v=5" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <div class="pull-wrapper">
     <!-- Pull Card -->
-    <div class="pull-card">
-      <div class="pull-text">
+    <div class="pull-card card">
+      <div class="pull-text section-text">
         <div class="section-label">PULL</div>
-        <div class="section-date" id="date-pull-md">-- / --</div>
+        <div class="section-date" id="date-pull-md">--<span class="slash"> / </span>--</div>
       </div>
       <div class="pull-illustration">
         <img
@@ -29,17 +29,17 @@
     </div>
 
     <!-- RTS Card -->
-    <div class="rts-card">
-      <div class="rts-text">
-        <div class="section-label">RTS</div>
-        <div class="section-date" id="date-rts-md">-- / --</div>
-      </div>
+    <div class="rts-card card">
       <div class="rts-illustration">
         <img
           src="images/rts-512.webp"
           srcset="images/rts-512.webp 1x, images/rts-1024.webp 2x"
           alt="RTS graphic"
         />
+      </div>
+      <div class="rts-text section-text">
+        <div class="section-label">RTS</div>
+        <div class="section-date" id="date-rts-md">--<span class="slash"> / </span>--</div>
       </div>
     </div>
   </div>
@@ -51,6 +51,6 @@
     <div class="bar"></div>
   </div>
 
-  <script src="./js/script.js?v=4"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>
