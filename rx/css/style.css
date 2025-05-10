@@ -80,7 +80,7 @@ body {
 .pull-image img,
 .rts-image img {
   width: 100%;
-  max-width: 150px;
+  max-width: 120px; /* reduced for more breathing room */
   height: auto;
   display: block;
 }
