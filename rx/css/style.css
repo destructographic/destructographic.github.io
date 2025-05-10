@@ -18,6 +18,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header {
+  /* removed; hamburger is now floating */
+}
+
 .pull-wrapper {
   display: flex;
   flex-direction: column;
@@ -80,7 +84,7 @@ body {
 .pull-image img,
 .rts-image img {
   width: 100%;
-  max-width: 120px; /* reduced for more breathing room */
+  max-width: 120px;
   height: auto;
   display: block;
 }
@@ -93,7 +97,7 @@ body {
   justify-content: center;
   color: var(--white);
   font-size: 0.95rem;
-  margin: 1.2rem 0 1.5rem;
+  margin: 2rem 0; /* increased breathing room above and below */
 }
 
 .greeting-separator::before,
