@@ -1,7 +1,6 @@
 :root {
   --cvs-red: #cc0000;
   --charcoal: #222222;
-  --slate: #6e7b8b;
   --white: #ffffff;
 }
 
@@ -13,78 +12,66 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif, Arial;
   min-height: 100vh;
   text-align: center;
-  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.header {
-  /* removed; hamburger is now floating */
 }
 
 .pull-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  padding: 1rem;
+}
+
+.pull-card,
+.rts-card {
+  display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 1rem 1rem 0.8rem;
-  box-sizing: border-box;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
 }
 
-.instructions {
-  font-size: 1.1rem;
-  font-weight: 500;
+.rts-card {
+  flex-direction: row-reverse;
+}
+
+.pull-text,
+.rts-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.section-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
   color: var(--white);
-  text-align: center;
-  margin: 0.2rem 0 0.5rem;
-  line-height: 1.4;
 }
 
-.verb-highlight {
-  background: var(--charcoal);
-  color: var(--white);
-  padding: 0.1em 0.4em;
-  border-radius: 4px;
-}
-
-.date-container {
-  width: 90vw;
-  font-size: 9vw;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.date-block {
+.section-date {
+  margin-top: 0.25rem;
+  font-size: 2.5rem;
   font-weight: 200;
-  letter-spacing: normal;
-}
-
-.date-top {
-  font-size: 1.3em;
 }
 
 .slash {
   font-size: 0.6em;
+  vertical-align: middle;
 }
 
-.date-bottom {
-  font-size: 0.8em;
-}
-
-.pull-image,
-.rts-image {
-  margin: 0.2rem 0 0.5rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 0 1rem;
-  box-sizing: border-box;
-}
-
-.pull-image img,
-.rts-image img {
-  width: 100%;
+.pull-illustration,
+.rts-illustration {
+  flex: 0 0 auto;
+  width: 25%;
   max-width: 120px;
+}
+
+.pull-illustration img,
+.rts-illustration img {
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -97,7 +84,7 @@ body {
   justify-content: center;
   color: var(--white);
   font-size: 0.95rem;
-  margin: 4rem 0; /* increased breathing room above and below */
+  margin: 3rem 0;
 }
 
 .greeting-separator::before,
@@ -109,7 +96,6 @@ body {
   margin: 0 0.75rem;
 }
 
-/* Floating hamburger styling */
 .floating-hamburger {
   position: fixed;
   bottom: 1rem;
