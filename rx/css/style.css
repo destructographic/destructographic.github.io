@@ -1,6 +1,6 @@
 :root {
   --cvs-red: #cc0000;
-  --card-red: #e13b2d;    /* lighter red for cards */
+  --card-red: #e13b2d;
   --charcoal: #222222;
   --white: #ffffff;
 }
@@ -21,7 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 1rem;
+  padding: 1rem;           /* 1rem on all sides */
+  box-sizing: border-box;  /* include padding in width calculations */
   gap: 1rem;
 }
 
@@ -32,9 +33,8 @@ body {
   padding: 1rem;
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 90vw;
-  margin: 0 auto;
+  width: 100%;             /* fill wrapper minus its padding */
+  box-sizing: border-box;
 }
 
 /* Pull card: text left, image right */
@@ -44,7 +44,7 @@ body {
 
 /* RTS card: mirrored horizontally */
 .rts-card {
-  flex-direction: row-reverse;   /* ← ensure this is here */
+  flex-direction: row-reverse;
 }
 
 .section-text {
