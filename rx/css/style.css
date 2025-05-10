@@ -97,7 +97,7 @@ body {
   justify-content: center;
   color: var(--white);
   font-size: 0.95rem;
-  margin: 2rem 0; /* increased breathing room above and below */
+  margin: 3rem 0; /* increased breathing room above and below */
 }
 
 .greeting-separator::before,
