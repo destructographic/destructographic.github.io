@@ -32,7 +32,11 @@ body {
 }
 
 .rts-card {
-  flex-direction: row-reverse;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse; /* flip the column order */
+  margin-bottom: 1.5rem;
 }
 
 .pull-text,
