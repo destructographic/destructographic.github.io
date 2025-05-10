@@ -1,6 +1,6 @@
 :root {
   --cvs-red: #cc0000;
-  --card-red: #e13b2d;    /* new lighter red for cards */
+  --card-red: #e13b2d;    /* lighter red for cards */
   --charcoal: #222222;
   --white: #ffffff;
 }
@@ -42,9 +42,9 @@ body {
   flex-direction: row;
 }
 
-/* RTS card: mirrored */
+/* RTS card: mirrored horizontally */
 .rts-card {
-  flex-direction: row-reverse;
+  flex-direction: row-reverse;   /* ← ensure this is here */
 }
 
 .section-text {
