@@ -34,7 +34,7 @@ body {
 .instructions {
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--charcoal);
+  color: var(--white);
   text-align: center;
   margin: 0.2rem 0 0.5rem;
   line-height: 1.4;
