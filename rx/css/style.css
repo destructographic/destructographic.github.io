@@ -20,29 +20,32 @@ body {
 .pull-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  padding: 1rem;           /* 1rem on all sides */
-  box-sizing: border-box;  /* include padding in width calculations */
+  height: calc(var(--vh, 1vh) * 100);
+  padding: 1rem;
   gap: 1rem;
+  box-sizing: border-box;
 }
 
-/* Common card styling */
+/* Base card styling */
 .card {
   background: var(--card-red);
   border-radius: 1rem;
   padding: 1rem;
   display: flex;
   align-items: center;
-  width: 100%;             /* fill wrapper minus its padding */
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
+  flex: 1;               /* each card fills available space */
   box-sizing: border-box;
 }
 
-/* Pull card: text left, image right */
+/* Pull: text then image */
 .pull-card {
   flex-direction: row;
 }
 
-/* RTS card: mirrored horizontally */
+/* RTS: mirrored */
 .rts-card {
   flex-direction: row-reverse;
 }
@@ -57,14 +60,14 @@ body {
 }
 
 .section-label {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vh, 2.5rem);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .section-date {
   margin-top: 0.25rem;
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 8vh, 4rem);
   font-weight: 200;
 }
 
@@ -82,12 +85,12 @@ body {
 
 .pull-illustration img,
 .rts-illustration img {
-  width: 100%;
-  height: auto;
+  max-height: 80%;
+  width: auto;
   display: block;
 }
 
-/* Greeting separator styling */
+/* Greeting separator */
 .greeting-separator {
   width: 100%;
   align-self: stretch;
@@ -108,7 +111,7 @@ body {
   margin: 0 0.75rem;
 }
 
-/* Floating hamburger styling */
+/* Floating hamburger */
 .floating-hamburger {
   position: fixed;
   bottom: 1rem;
