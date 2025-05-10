@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Pull Section
   document.getElementById("instructions-pull").innerHTML =
-    `We need to <span class="verb-highlight">pull</span> meds that were filled on:`;
+    `We need to <span class="verb-highlight">PULL</span> meds that were filled on:`;
 
   const pullDate = new Date();
   pullDate.setDate(pullDate.getDate() - 13);
