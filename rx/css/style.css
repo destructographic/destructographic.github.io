@@ -106,7 +106,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--card-red);
+  color: var(--white);
   font-size: 1rem;
   margin: 3rem 0;
 }
@@ -116,7 +116,7 @@ body {
   content: "";
   flex: 1;
   height: 4px;                 /* thicker line */
-  background: var(--white);
+  background: var(--charcoal);
   border-radius: 2px;          /* slightly rounded ends */
   margin: 0 1rem;              /* more breathing room */
 }
