@@ -30,6 +30,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Common card styling */
 .card {
   background-color: var(--card-red);
   border-radius: 1rem;
@@ -99,7 +100,7 @@ body {
   display: block;
 }
 
-/* Chunky greeting separator */
+/* Enhanced greeting separator styling */
 .greeting-separator {
   width: 100%;
   align-self: stretch;
@@ -107,20 +108,23 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--white);
-  font-size: 1rem;
-  margin: 3rem 0;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 2rem 0;
 }
 
 .greeting-separator::before,
 .greeting-separator::after {
   content: "";
   flex: 1;
-  height: 4px;                 /* thicker line */
+  height: 4px;
   background: var(--white);
-  border-radius: 2px;          /* slightly rounded ends */
-  margin: 0 1rem;              /* more breathing room */
+  border-radius: 2px;
+  margin: 0 0.5rem;
 }
 
+/* Floating hamburger styling */
 .floating-hamburger {
   position: fixed;
   bottom: 1rem;
