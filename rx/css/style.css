@@ -21,7 +21,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* App wrapper now fills full viewport height */
+/* App wrapper (unchanged) */
 .app-wrapper {
   position: relative;
   display: flex;
@@ -30,13 +30,12 @@ body {
   padding: 1rem 0;
   gap: 1rem;
   box-sizing: border-box;
-
-  max-width: 375px;    /* typical phone width */
-  margin: 0 auto;      /* center on wider screens */
-  min-height: 100vh;   /* ensure it spans full viewport */
+  max-width: 375px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
-/* Common card styling */
+/* Common card styling (unchanged) */
 .card {
   background-color: var(--card-red);
   border-radius: 1rem;
@@ -46,48 +45,16 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
+.pull-card { flex-direction: row; }
+.rts-card  { flex-direction: row-reverse; }
 
-.pull-card {
-  flex-direction: row;
-}
+.section-text { display: flex; flex-direction: column; flex: 1; padding: 0 1rem; }
+.pull-text    { align-items: flex-start; text-align: left; }
+.rts-text     { align-items: flex-end;   text-align: right; }
 
-.rts-card {
-  flex-direction: row-reverse;
-}
-
-.section-text {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 0 1rem;
-}
-
-.pull-text {
-  align-items: flex-start;
-  text-align: left;
-}
-
-.rts-text {
-  align-items: flex-end;
-  text-align: right;
-}
-
-.section-label {
-  font-size: clamp(1.5rem, 4vh, 2.5rem);
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.section-date {
-  margin-top: 0.25rem;
-  font-size: clamp(2rem, 8vh, 4rem);
-  font-weight: 200;
-}
-
-.slash {
-  font-size: 0.6em;
-  vertical-align: middle;
-}
+.section-label { font-size: clamp(1.5rem, 4vh, 2.5rem); font-weight: 700; text-transform: uppercase; }
+.section-date  { margin-top: 0.25rem; font-size: clamp(2rem, 8vh, 4rem); font-weight: 200; }
+.slash         { font-size: 0.6em; vertical-align: middle; }
 
 .pull-illustration,
 .rts-illustration {
@@ -95,7 +62,6 @@ body {
   width: 25%;
   max-width: 100px;
 }
-
 .pull-illustration img,
 .rts-illustration img {
   max-height: 120px;
@@ -104,7 +70,7 @@ body {
   display: block;
 }
 
-/* Chunky greeting separator */
+/* Chunky separator (unchanged) */
 .greeting-separator {
   width: 100%;
   align-self: stretch;
@@ -117,7 +83,6 @@ body {
   letter-spacing: 0.02em;
   margin: 2rem 0;
 }
-
 .greeting-separator::before,
 .greeting-separator::after {
   content: "";
@@ -128,11 +93,12 @@ body {
   margin: 0 0.5rem;
 }
 
-/* Hamburger now positioned at bottom-right of wrapper */
+/* Option 2: fixed positioning for hamburger */
 .floating-hamburger {
-  position: absolute;
+  position: fixed;
   bottom: 1rem;
-  right: 1rem;
+  /* center-wrapper = (100% - 375px)/2, plus 1rem padding */
+  right: calc((100% - 375px)/2 + 1rem);
   width: 44px;
   height: 44px;
   display: flex;
@@ -144,7 +110,6 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   cursor: default;
 }
-
 .floating-hamburger .bar {
   width: 60%;
   height: 3px;
