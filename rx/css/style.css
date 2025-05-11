@@ -21,18 +21,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* App wrapper now the positioning context */
+/* App wrapper now fills full viewport height */
 .app-wrapper {
-  position: relative;       /* for absolute children */
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 1rem 0;          /* vertical breathing room */
+  padding: 1rem 0;
   gap: 1rem;
   box-sizing: border-box;
 
-  max-width: 375px;         /* typical phone width */
-  margin: 0 auto;           /* center on wider screens */
+  max-width: 375px;    /* typical phone width */
+  margin: 0 auto;      /* center on wider screens */
+  min-height: 100vh;   /* ensure it spans full viewport */
 }
 
 /* Common card styling */
