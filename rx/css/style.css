@@ -21,17 +21,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* App wrapper now has only vertical padding */
+/* App wrapper now the positioning context */
 .app-wrapper {
+  position: relative;       /* for absolute children */
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 1rem 0;     /* top/bottom only */
+  padding: 1rem 0;          /* vertical breathing room */
   gap: 1rem;
   box-sizing: border-box;
 
-  max-width: 375px;    /* constrains to typical phone width */
-  margin: 0 auto;      /* centers on wider screens */
+  max-width: 375px;         /* typical phone width */
+  margin: 0 auto;           /* center on wider screens */
 }
 
 /* Common card styling */
@@ -45,12 +46,10 @@ body {
   box-sizing: border-box;
 }
 
-/* Pull card: text left, image right */
 .pull-card {
   flex-direction: row;
 }
 
-/* RTS card: mirrored horizontally */
 .rts-card {
   flex-direction: row-reverse;
 }
@@ -128,12 +127,11 @@ body {
   margin: 0 0.5rem;
 }
 
-/* Floating hamburger styling */
+/* Hamburger now positioned at bottom-right of wrapper */
 .floating-hamburger {
-  position: fixed;
+  position: absolute;
   bottom: 1rem;
   right: 1rem;
-  z-index: 1000;
   width: 44px;
   height: 44px;
   display: flex;
