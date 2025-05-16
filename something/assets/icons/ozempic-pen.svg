@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 20">
+  <rect x="0" y="2" width="120" height="16" rx="8" ry="8" fill="var(--bg)" stroke="white" stroke-width="4"/>
+  <!-- dose dial ridges -->
+  <g stroke="white" stroke-width="2">
+    <line x1="110" y1="2" x2="110" y2="18"/>
+    <line x1="115" y1="2" x2="115" y2="18"/>
+    <line x1="120" y1="2" x2="120" y2="18"/>
+  </g>
+  <!-- cap -->
+  <rect x="0" y="0" width="12" height="20" fill="var(--bg)" stroke="white" stroke-width="4"/>
+</svg>
