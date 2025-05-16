@@ -1,0 +1,1 @@
+console.log('rx-rain.js loaded: Rx Rain effect ready to initialize');
