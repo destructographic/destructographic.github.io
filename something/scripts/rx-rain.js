@@ -57,6 +57,7 @@ class Particle {
     this.reset()
   }
   reset() {
+    // size between 20% and 50%
     this.scale = 0.2 + Math.random() * 0.3
     this.x = Math.random() * w
     this.y = -this.img.height * this.scale
@@ -85,8 +86,11 @@ class Particle {
 }
 
 const particles = []
+const spawnRate = 0.02     // 2% chance per frame
+const maxParticles = 50    // limit total icons
+
 function spawn() {
-  const rnd = Math.random()
+  let rnd = Math.random()
   let sum = 0
   for (let key in frequencies) {
     sum += frequencies[key]
@@ -99,11 +103,16 @@ function spawn() {
 
 function animate() {
   ctx.clearRect(0, 0, w, h)
-  if (Math.random() < 0.1) spawn()  // base spawn chance
+
+  if (particles.length < maxParticles && Math.random() < spawnRate) {
+    spawn()
+  }
+
   particles.forEach(p => {
     p.update()
     p.draw()
   })
+
   requestAnimationFrame(animate)
 }
 
