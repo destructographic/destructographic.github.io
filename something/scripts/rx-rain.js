@@ -57,7 +57,7 @@ class Particle {
     this.reset()
   }
   reset() {
-    this.scale = 0.5 + Math.random() * 0.5
+    this.scale = 0.2 + Math.random() * 0.3
     this.x = Math.random() * w
     this.y = -this.img.height * this.scale
     this.speed = 1 + Math.random() * 2
