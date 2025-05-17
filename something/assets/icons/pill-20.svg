@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 34">
+  <!-- front face -->
+  <polygon points="10,5 42,5 42,29 10,29" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <!-- top face -->
+  <polygon points="10,5 20,0 52,0 42,5" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <!-- side face -->
+  <polygon points="42,5 52,0 52,24 42,29" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <!-- cap boundary -->
+  <line x1="10" y1="13" x2="42" y2="13" stroke="white" stroke-width="2"/>
+</svg>

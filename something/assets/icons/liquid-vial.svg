@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 58">
+  <!-- top ellipse -->
+  <ellipse cx="26" cy="10" rx="16" ry="6" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <!-- body -->
+  <rect x="10" y="10" width="32" height="40" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <!-- label line -->
+  <line x1="10" y1="30" x2="42" y2="30" stroke="white" stroke-width="2"/>
+</svg>

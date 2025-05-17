@@ -1,12 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-  <!-- cube -->
-  <path d="M10,10 L70,10 L70,50 L10,50 Z" fill="var(--bg)" stroke="white" stroke-width="4"/>
-  <path d="M10,10 L30,0 L70,0 L50,10 Z" fill="var(--bg)" stroke="white" stroke-width="4"/>
-  <path d="M70,10 L50,0 L50,40 L70,50 Z" fill="var(--bg)" stroke="white" stroke-width="4"/>
-  <!-- Rx text -->
-  <text x="20" y="35" font-family="Arial, sans-serif" font-size="24" fill="white">Rx</text>
-  <!-- side text lines -->
-  <line x1="65" y1="20" x2="75" y2="20" stroke="white" stroke-width="2"/>
-  <line x1="65" y1="30" x2="75" y2="30" stroke="white" stroke-width="2"/>
-  <line x1="65" y1="40" x2="75" y2="40" stroke="white" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path d="M10,30 L50,10 L90,30 L90,80 L50,100 L10,80 Z" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <path d="M50,10 L50,50 L90,30" fill="none" stroke="white" stroke-width="2"/>
+  <text x="30" y="60" fill="white" font-family="Arial, sans-serif" font-size="20">Rx</text>
+  <line x1="25" y1="70" x2="75" y2="70" stroke="white" stroke-width="2"/>
 </svg>
