@@ -1,42 +1,34 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-	<meta charset="utf-8">
-
-	<title>destructographic.com</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script>
-		$(function() {
-
-			var theWindow        = $(window),
-			    $bg              = $("#bg"),
-			    aspectRatio      = $bg.width() / $bg.height();
-
-			function resizeBg() {
-
-				if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
-				    $bg
-				    	.removeClass()
-				    	.addClass('bgheight');
-				} else {
-				    $bg
-				    	.removeClass()
-				    	.addClass('bgwidth');
-				}
-
-			}
-
-			theWindow.resize(function() {
-				resizeBg();
-			}).trigger("resize");
-
-		});
-	</script>
-	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PNG Icon Test</title>
+  <style>
+    body {
+      margin: 0;
+      background: #cc0000;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 20px;
+    }
+    .icon {
+      width: 96px;
+      padding: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+    }
+  </style>
 </head>
-
 <body>
-  
-	<img src="https://cloud.githubusercontent.com/assets/7255452/11321346/13593c38-9070-11e5-9d0d-3aaa879fe0c1.gif" id="bg" alt="" class="bgwidth">
-
+  <img src="pill-small.png" class="icon"/>
+  <img src="pill-medium.png" class="icon"/>
+  <img src="pill-large.png" class="icon"/>
+  <img src="liquid-vial.png" class="icon"/>
+  <img src="rx-box.png" class="icon"/>
+  <img src="capsule.png" class="icon"/>
+  <img src="ozempic-pen.png" class="icon"/>
+  <img src="inhaler.png" class="icon"/>
 </body>
 </html>
