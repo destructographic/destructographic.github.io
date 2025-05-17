@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <path d="M10,30 L50,10 L90,30 L90,80 L50,100 L10,80 Z" fill="#cc0000" stroke="white" stroke-width="2"/>
-  <path d="M50,10 L50,50 L90,30" fill="none" stroke="white" stroke-width="2"/>
-  <text x="30" y="60" fill="white" font-family="Arial, sans-serif" font-size="20">Rx</text>
+  <rect x="20" y="20" width="60" height="60" fill="#cc0000" stroke="white" stroke-width="2"/>
+  <text x="35" y="55" font-family="Arial" font-size="20" fill="white">Rx</text>
   <line x1="25" y1="70" x2="75" y2="70" stroke="white" stroke-width="2"/>
+  <line x1="25" y1="75" x2="75" y2="75" stroke="white" stroke-width="2"/>
 </svg>
