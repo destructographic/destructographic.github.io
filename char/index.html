@@ -1,4 +1,4 @@
-<!-- index.html --><!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,27 +12,4 @@
   </div>
   <script src="script.js"></script>
 </body>
-</html>/* style.css */ body, html { margin: 0; padding: 0; height: 100%; background-color: #222; display: flex; align-items: center; justify-content: center; font-family: sans-serif; }
-
-.canvas-wrapper { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; gap: 1rem; }
-
-canvas { border: 2px solid #fff; background-color: #444; image-rendering: pixelated; }
-
-#rngButton { background-color: #fff; color: #000; border: none; padding: 0.5rem 1rem; font-weight: bold; cursor: pointer; }
-
-// script.js const canvas = document.getElementById('characterCanvas'); const ctx = canvas.getContext('2d');
-
-const parts = ['head', 'eyes', 'mouth', 'hair']; const assetsPath = 'assets/';
-
-const loadImage = (src) => { return new Promise((resolve) => { const img = new Image(); img.onload = () => resolve(img); img.src = src; }); };
-
-const getRandomInt = (max) => Math.floor(Math.random() * max);
-
-async function generateCharacter() { ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-for (const part of parts) { const variant = getRandomInt(3); // assume 3 variants per part const img = await loadImage(${assetsPath}${part}-${variant}.png); ctx.drawImage(img, 0, 0); } }
-
-document.getElementById('rngButton').addEventListener('click', generateCharacter);
-
-generateCharacter();
-
+</html>
