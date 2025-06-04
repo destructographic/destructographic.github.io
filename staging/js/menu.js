@@ -1,3 +1,4 @@
+console.log("menu.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.querySelector(".floating-hamburger");
   const menu = document.getElementById("slideupMenu");
