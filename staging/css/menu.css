@@ -1,1 +1,54 @@
-/* Menu styles will go here */
+/* Menu Panel */
+.slideup-menu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  height: 100vh;
+  background-color: var(--charcoal);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  z-index: 1000;
+  transition: bottom 0.3s ease-out;
+}
+
+/* Active State */
+.slideup-menu.active {
+  bottom: 0;
+}
+
+/* Close Button (X) */
+.menu-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+/* Menu Items */
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.menu-items a {
+  font-size: 1.25rem;
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.menu-items a:hover {
+  text-decoration: underline;
+}
