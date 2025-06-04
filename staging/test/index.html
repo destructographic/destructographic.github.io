@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rx Pull Schedule</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Pull Card -->
+    <div class="pull-card card">
+      <div class="section-text pull-text">
+        <div class="section-label">PULL</div>
+        <div class="section-date" id="date-pull-md">--<span class="slash"> / </span>--</div>
+      </div>
+      <div class="pull-illustration">
+        <img
+          src="images/pull-512.webp"
+          srcset="images/pull-512.webp 1x, images/pull-1024.webp 2x"
+          alt="Pull graphic"
+        />
+      </div>
+    </div>
+
+    <!-- Greeting Separator -->
+    <div class="greeting-separator">
+      <span id="greeting"></span>
+    </div>
+
+    <!-- RTS Card -->
+    <div class="rts-card card">
+      <div class="section-text rts-text">
+        <div class="section-label">RTS</div>
+        <div class="section-date" id="date-rts-md">--<span class="slash"> / </span>--</div>
+      </div>
+      <div class="rts-illustration">
+        <img
+          src="images/rts-512.webp"
+          srcset="images/rts-512.webp 1x, images/rts-1024.webp 2x"
+          alt="RTS graphic"
+        />
+      </div>
+    </div>
+
+    <!-- Floating Hamburger Button (now inside wrapper) -->
+    <div class="floating-hamburger" role="button" aria-label="Menu">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>
