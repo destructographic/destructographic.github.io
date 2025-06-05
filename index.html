@@ -30,10 +30,14 @@
     }
 
     function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      gl.viewport(0, 0, canvas.width, canvas.height);
     }
+
     window.addEventListener("resize", resize);
     resize();
 
@@ -60,7 +64,7 @@
         float wave = sin(a * 6.0 + time) * 0.03;
         float base = 0.3 + pulse;
         float ring = smoothstep(base + wave, base + wave + 0.01, r) - smoothstep(base + wave + 0.01, base + wave + 0.02, r);
-        
+
         vec3 col = mix(vec3(0.05), vec3(1.0, 0.1, 0.5), ring);
 
         gl_FragColor = vec4(col, 1.0);
