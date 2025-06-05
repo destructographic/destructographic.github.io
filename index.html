@@ -36,7 +36,6 @@
     window.addEventListener("resize", resize);
     resize();
 
-    // --- SHADERS ---
     const vsSource = `
       attribute vec3 position;
       attribute float faceId;
@@ -119,8 +118,7 @@
       3,4, 4,5, 5,3,
       6,7, 7,8, 8,6,
       9,10,10,11,11,9,
-      12,13,13,14,14,12,
-      15,16,16,17,17,15
+      12,13,13,14,14,15,15,12 // fixed: removed diagonal (was 12-14)
     ]);
 
     const positionBuffer = gl.createBuffer();
