@@ -56,8 +56,11 @@
 
         float a = atan(uv.y, uv.x);
         float r = length(uv);
-        float wave = sin(a * 6.0 + time) * 0.05;
-        float ring = smoothstep(0.3 + wave, 0.31 + wave, r) - smoothstep(0.31 + wave, 0.32 + wave, r);
+        float pulse = 0.05 * sin(time * 2.0); // true pulsing in/out
+        float wave = sin(a * 6.0 + time) * 0.03;
+        float base = 0.3 + pulse;
+        float ring = smoothstep(base + wave, base + wave + 0.01, r) - smoothstep(base + wave + 0.01, base + wave + 0.02, r);
+        
         vec3 col = mix(vec3(0.05), vec3(1.0, 0.1, 0.5), ring);
 
         gl_FragColor = vec4(col, 1.0);
