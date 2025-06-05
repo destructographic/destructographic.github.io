@@ -36,21 +36,41 @@
     window.addEventListener("resize", resize);
     resize();
 
+    // --- SHADERS ---
     const vsSource = `
       attribute vec3 position;
+      attribute float faceId;
+      varying float vFaceId;
       uniform mat4 modelViewMatrix;
       uniform mat4 projectionMatrix;
       void main(void) {
+        vFaceId = faceId;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
     `;
 
     const fsSource = `
       precision mediump float;
+      varying float vFaceId;
+      uniform float uTime;
+      uniform int uWire;
+
+      bool hexaflicker(float fid, float t) {
+        float seed = fid * 12.345 + t * 0.5;
+        float n = fract(sin(seed) * 43758.5453);
+        return n > 0.97;
+      }
+
       void main(void) {
-        float flicker = step(0.9, fract(sin(gl_FragCoord.y * 4.0 + gl_FragCoord.x * 0.5) * 43758.5453));
-        float noise = fract(sin(gl_FragCoord.x * 12.9898 + gl_FragCoord.y * 78.233) * 43758.5453);
-        vec3 color = mix(vec3(1.0), vec3(1.0, 0.2, 0.2), flicker * noise);
+        if (uWire == 1) {
+          gl_FragColor = vec4(1.0);
+          return;
+        }
+        bool isGlitched = hexaflicker(vFaceId, uTime);
+        if (!isGlitched) discard;
+
+        float scan = step(0.5, fract(gl_FragCoord.y * 0.2));
+        vec3 color = vec3(1.0, 0.1, 0.1) * scan;
         gl_FragColor = vec4(color, 1.0);
       }
     `;
@@ -75,32 +95,45 @@
     gl.useProgram(program);
 
     const positionLoc = gl.getAttribLocation(program, "position");
+    const faceIdLoc = gl.getAttribLocation(program, "faceId");
     const modelViewLoc = gl.getUniformLocation(program, "modelViewMatrix");
     const projectionLoc = gl.getUniformLocation(program, "projectionMatrix");
+    const timeLoc = gl.getUniformLocation(program, "uTime");
+    const wireLoc = gl.getUniformLocation(program, "uWire");
 
-    const pyramidVertices = new Float32Array([
-      -1, 0, -1,
-       1, 0, -1,
-       1, 0,  1,
-      -1, 0,  1,
-       0, 1.5, 0
+    const vertices = new Float32Array([
+      -1,0,-1,  1,0,-1,  0,1.5,0,
+       1,0,-1,  1,0, 1,  0,1.5,0,
+       1,0, 1, -1,0, 1,  0,1.5,0,
+      -1,0, 1, -1,0,-1,  0,1.5,0,
+      -1,0,-1,  1,0,-1,  1,0, 1,
+       1,0, 1, -1,0, 1, -1,0,-1
     ]);
 
-    const pyramidEdges = new Uint16Array([
-      0, 1, 1, 2, 2, 3, 3, 0,
-      0, 4, 1, 4, 2, 4, 3, 4
+    const faceIds = new Float32Array([
+      0,0,0, 1,1,1, 2,2,2, 3,3,3, 4,4,4, 5,5,5
     ]);
 
-    const vbo = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-    gl.bufferData(gl.ARRAY_BUFFER, pyramidVertices, gl.STATIC_DRAW);
+    const wireIndices = new Uint16Array([
+      0,1, 1,2, 2,0,
+      3,4, 4,5, 5,3,
+      6,7, 7,8, 8,6,
+      9,10,10,11,11,9,
+      12,13,13,14,14,12,
+      15,16,16,17,17,15
+    ]);
 
-    const ebo = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ebo);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, pyramidEdges, gl.STATIC_DRAW);
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-    gl.enableVertexAttribArray(positionLoc);
-    gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
+    const faceIdBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, faceIdBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, faceIds, gl.STATIC_DRAW);
+
+    const wireBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, wireIndices, gl.STATIC_DRAW);
 
     function mat4Perspective(fov, aspect, near, far) {
       const f = 1.0 / Math.tan(fov / 2);
@@ -139,8 +172,23 @@
 
       gl.uniformMatrix4fv(modelViewLoc, false, new Float32Array(mv));
       gl.uniformMatrix4fv(projectionLoc, false, new Float32Array(proj));
+      gl.uniform1f(timeLoc, time);
 
-      gl.drawElements(gl.LINES, pyramidEdges.length, gl.UNSIGNED_SHORT, 0);
+      // Pass 1: draw glitch faces
+      gl.uniform1i(wireLoc, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.enableVertexAttribArray(positionLoc);
+      gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, faceIdBuffer);
+      gl.enableVertexAttribArray(faceIdLoc);
+      gl.vertexAttribPointer(faceIdLoc, 1, gl.FLOAT, false, 0, 0);
+      gl.drawArrays(gl.TRIANGLES, 0, 18);
+
+      // Pass 2: draw wireframe lines
+      gl.uniform1i(wireLoc, 1);
+      gl.disableVertexAttribArray(faceIdLoc);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireBuffer);
+      gl.drawElements(gl.LINES, wireIndices.length, gl.UNSIGNED_SHORT, 0);
 
       requestAnimationFrame(render);
     }
