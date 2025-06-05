@@ -58,8 +58,8 @@
       uniform float time;
 
       void main() {
-        vec2 uv = (gl_FragCoord.xy / resolution.xy) * 2.0 - 1.0;
-        uv *= vec2(resolution.x / resolution.y, 1.0);  // X scales with aspect ratio
+        vec2 uv = gl_FragCoord.xy - 0.5 * resolution;
+        uv /= min(resolution.x, resolution.y);
         
         float a = atan(uv.y, uv.x);
         float r = length(uv);
