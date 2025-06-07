@@ -3,22 +3,25 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: -100%;
+  bottom: 0;
   height: 100vh;
+  transform: translateY(100%);
   background-color: var(--charcoal);
   color: var(--white);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 1.5rem;
   z-index: 1000;
-  transition: bottom 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 /* Active State */
 .slideup-menu.active {
-  bottom: 0;
+  transform: translateY(0%);
 }
 
 /* Close Button (X) */
