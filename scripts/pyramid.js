@@ -1,8 +1,7 @@
-// scripts/pyramid.js (fixed: uses full 3D perpendicular vectors for thick lines)
-
 const canvas = document.getElementById("glcanvas");
 const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 
+// Resize canvas for device pixel ratio
 function resize() {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = window.innerWidth * dpr;
@@ -14,9 +13,6 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
-const useThickLines = true;
-const lineThickness = 0.02;
-
 const vsSource = `
 attribute vec3 position;
 attribute float faceId;
@@ -26,7 +22,8 @@ uniform mat4 projectionMatrix;
 void main(void) {
   vFaceId = faceId;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}`;
+}
+`;
 
 const fsSource = `
 precision mediump float;
@@ -42,7 +39,7 @@ bool hexaflicker(float fid, float t) {
 
 void main(void) {
   if (uWire == 1) {
-    gl_FragColor = vec4(vec3(0.5 + 0.5 * fract(vFaceId * 0.3)), 1.0);
+    gl_FragColor = vec4(1.0);
     return;
   }
   bool isGlitched = hexaflicker(vFaceId, uTime);
@@ -51,7 +48,8 @@ void main(void) {
   float scan = step(0.5, fract(gl_FragCoord.y * 0.2));
   vec3 color = vec3(1.0, 0.1, 0.1) * scan;
   gl_FragColor = vec4(color, 1.0);
-}`;
+}
+`;
 
 function compileShader(src, type) {
   const shader = gl.createShader(type);
@@ -78,112 +76,73 @@ const projectionLoc = gl.getUniformLocation(program, "projectionMatrix");
 const timeLoc = gl.getUniformLocation(program, "uTime");
 const wireLoc = gl.getUniformLocation(program, "uWire");
 
-const pointPositions = [
-  [-1, 0, -1], [1, 0, -1], [1, 0, 1], [-1, 0, 1], [0, 1.5, 0]
-];
-
-const faceVertices = new Float32Array([
-  ...pointPositions[0], ...pointPositions[1], ...pointPositions[4],
-  ...pointPositions[1], ...pointPositions[2], ...pointPositions[4],
-  ...pointPositions[2], ...pointPositions[3], ...pointPositions[4],
-  ...pointPositions[3], ...pointPositions[0], ...pointPositions[4],
-  ...pointPositions[0], ...pointPositions[1], ...pointPositions[2],
-  ...pointPositions[2], ...pointPositions[3], ...pointPositions[0]
+// Vertex and face data (same as original)
+const vertices = new Float32Array([
+  -1,0,-1,  1,0,-1,  0,1.5,0,    // face 0
+   1,0,-1,  1,0, 1,  0,1.5,0,    // face 1
+   1,0, 1, -1,0, 1,  0,1.5,0,    // face 2
+  -1,0, 1, -1,0,-1,  0,1.5,0,    // face 3
+  -1,0,-1,  1,0,-1,  1,0, 1,     // base triangle 1
+   1,0, 1, -1,0, 1, -1,0,-1      // base triangle 2
 ]);
 
 const faceIds = new Float32Array([
   0,0,0, 1,1,1, 2,2,2, 3,3,3, 4,4,4, 5,5,5
 ]);
 
-const wireSegments = [
-  [0,1], [1,2], [2,3], [3,0], [0,4], [1,4], [2,4], [3,4]
-];
+const wireIndices = new Uint16Array([
+  0,1, 1,2, 2,0,
+  3,4, 4,5, 5,3,
+  6,7, 7,8, 8,6,
+  9,10,10,11,11,9
+]);
 
-const wireLineIndices = new Uint16Array(wireSegments.flat());
-
-function normalize(vec) {
-  const len = Math.hypot(...vec);
-  return len > 0 ? vec.map(v => v / len) : [0, 0, 0];
-}
-
-function cross(a, b) {
-  return [
-    a[1] * b[2] - a[2] * b[1],
-    a[2] * b[0] - a[0] * b[2],
-    a[0] * b[1] - a[1] * b[0]
-  ];
-}
-
-function generateThickLine(p1, p2, thickness, fid) {
-  const tangent = normalize([p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]]);
-  const up = [0, 1, 0];
-  let normal = cross(tangent, up);
-  if (normal.every(n => n === 0)) normal = cross(tangent, [1, 0, 0]);
-  normal = normalize(normal).map(n => n * thickness / 2);
-
-  const p1a = [p1[0] + normal[0], p1[1] + normal[1], p1[2] + normal[2]];
-  const p1b = [p1[0] - normal[0], p1[1] - normal[1], p1[2] - normal[2]];
-  const p2a = [p2[0] + normal[0], p2[1] + normal[1], p2[2] + normal[2]];
-  const p2b = [p2[0] - normal[0], p2[1] - normal[1], p2[2] - normal[2]];
-
-  return [...p1a, ...p2a, ...p2b, ...p1a, ...p2b, ...p1b];
-}
-
-const thickWireVertices = [];
-const thickWireFaceIds = [];
-let segmentId = 0;
-for (let [a, b] of wireSegments) {
-  const p1 = pointPositions[a];
-  const p2 = pointPositions[b];
-  const tris = generateThickLine(p1, p2, lineThickness, segmentId);
-  thickWireVertices.push(...tris);
-  thickWireFaceIds.push(...Array(6).fill(segmentId));
-  segmentId++;
-}
-
-const thickPosBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, thickPosBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(thickWireVertices), gl.STATIC_DRAW);
-
-const thickIdBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, thickIdBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(thickWireFaceIds), gl.STATIC_DRAW);
-
-const facePosBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, facePosBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, faceVertices, gl.STATIC_DRAW);
+// Buffers
+const positionBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
 const faceIdBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, faceIdBuffer);
 gl.bufferData(gl.ARRAY_BUFFER, faceIds, gl.STATIC_DRAW);
 
-const wireIndexBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireIndexBuffer);
-gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, wireLineIndices, gl.STATIC_DRAW);
+const wireBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireBuffer);
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, wireIndices, gl.STATIC_DRAW);
 
+// Manual matrix math (no glMatrix)
 function mat4Perspective(fov, aspect, near, far) {
   const f = 1.0 / Math.tan(fov / 2);
   const nf = 1 / (near - far);
-  return [f / aspect,0,0,0, 0,f,0,0, 0,0,(far+near)*nf,-1, 0,0,2*far*near*nf,0];
+  return [
+    f / aspect, 0, 0, 0,
+    0, f, 0, 0,
+    0, 0, (far + near) * nf, -1,
+    0, 0, (2 * far * near) * nf, 0
+  ];
 }
 
 function render(time) {
   time *= 0.001;
-  gl.clearColor(0, 0, 0, 1);
+
+  gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   const aspect = canvas.width / canvas.height;
   const proj = mat4Perspective(Math.PI / 3, aspect, 0.1, 100);
+
   const yaw = time * 0.6;
   const pitch = Math.sin(time * 0.7) * 0.5;
   const roll = Math.cos(time * 0.9) * 0.3;
+
   const cy = Math.cos(yaw), sy = Math.sin(yaw);
   const cp = Math.cos(pitch), sp = Math.sin(pitch);
   const cr = Math.cos(roll), sr = Math.sin(roll);
+
   const mv = [
-    cr*cy+sr*sp*sy, sr*cp, cr*-sy+sr*sp*cy, 0,
-    -sr*cy+cr*sp*sy, cr*cp, sr*sy+cr*sp*cy, 0,
-    cp*sy, -sp, cp*cy, 0,
+    cr * cy + sr * sp * sy, sr * cp, cr * -sy + sr * sp * cy, 0,
+    -sr * cy + cr * sp * sy, cr * cp, sr * sy + cr * sp * cy, 0,
+    cp * sy, -sp, cp * cy, 0,
     0, 0, -5, 1
   ];
 
@@ -191,8 +150,9 @@ function render(time) {
   gl.uniformMatrix4fv(projectionLoc, false, new Float32Array(proj));
   gl.uniform1f(timeLoc, time);
 
+  // Pass 1: glitch faces
   gl.uniform1i(wireLoc, 0);
-  gl.bindBuffer(gl.ARRAY_BUFFER, facePosBuffer);
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.enableVertexAttribArray(positionLoc);
   gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
   gl.bindBuffer(gl.ARRAY_BUFFER, faceIdBuffer);
@@ -200,20 +160,12 @@ function render(time) {
   gl.vertexAttribPointer(faceIdLoc, 1, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.TRIANGLES, 0, 18);
 
+  // Pass 2: white wireframe
   gl.uniform1i(wireLoc, 1);
-  if (useThickLines) {
-    gl.bindBuffer(gl.ARRAY_BUFFER, thickPosBuffer);
-    gl.enableVertexAttribArray(positionLoc);
-    gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, thickIdBuffer);
-    gl.enableVertexAttribArray(faceIdLoc);
-    gl.vertexAttribPointer(faceIdLoc, 1, gl.FLOAT, false, 0, 0);
-    gl.drawArrays(gl.TRIANGLES, 0, thickWireVertices.length / 3);
-  } else {
-    gl.disableVertexAttribArray(faceIdLoc);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireIndexBuffer);
-    gl.drawElements(gl.LINES, wireLineIndices.length, gl.UNSIGNED_SHORT, 0);
-  }
+  gl.disableVertexAttribArray(faceIdLoc);
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireBuffer);
+  gl.drawElements(gl.LINES, wireIndices.length, gl.UNSIGNED_SHORT, 0);
+
   requestAnimationFrame(render);
 }
 
