@@ -1,130 +1,173 @@
 const canvas = document.getElementById("glcanvas");
-const gl = canvas.getContext("webgl");
+const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-gl.viewport(0, 0, canvas.width, canvas.height);
-gl.enable(gl.DEPTH_TEST);
+// Resize canvas for device pixel ratio
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+window.addEventListener("resize", resize);
+resize();
 
-const vertexShaderSource = `
+const vsSource = `
 attribute vec3 position;
-uniform mat4 projection;
-uniform mat4 modelView;
-varying vec3 vPosition;
-void main() {
-  vPosition = position;
-  gl_Position = projection * modelView * vec4(position, 1.0);
+attribute float faceId;
+varying float vFaceId;
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+void main(void) {
+  vFaceId = faceId;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 `;
 
-const fragmentShaderSource = `
+const fsSource = `
 precision mediump float;
-uniform float time;
-varying vec3 vPosition;
+varying float vFaceId;
+uniform float uTime;
+uniform int uWire;
 
-void main() {
-  float flicker = step(fract(sin(dot(vPosition.xy ,vec2(12.9898,78.233))) * 43758.5453 + time * 10.0), 0.5);
-  float scanline = sin((vPosition.y + time * 0.5) * 80.0) * 0.05;
-  vec3 color = mix(vec3(0.8, 0.0, 0.0), vec3(0.0), scanline);
-  gl_FragColor = vec4(color * flicker, 1.0);
+bool hexaflicker(float fid, float t) {
+  float seed = fid * 12.345 + t * 0.5;
+  float n = fract(sin(seed) * 43758.5453);
+  return n > 0.97;
+}
+
+void main(void) {
+  if (uWire == 1) {
+    gl_FragColor = vec4(1.0);
+    return;
+  }
+  bool isGlitched = hexaflicker(vFaceId, uTime);
+  if (!isGlitched) discard;
+
+  float scan = step(0.5, fract(gl_FragCoord.y * 0.2));
+  vec3 color = vec3(1.0, 0.1, 0.1) * scan;
+  gl_FragColor = vec4(color, 1.0);
 }
 `;
 
-function createShader(type, source) {
+function compileShader(src, type) {
   const shader = gl.createShader(type);
-  gl.shaderSource(shader, source);
+  gl.shaderSource(shader, src);
   gl.compileShader(shader);
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    console.error(gl.getShaderInfoLog(shader));
+    console.error("Shader compile error:", gl.getShaderInfoLog(shader));
   }
   return shader;
 }
 
-const vertexShader = createShader(gl.VERTEX_SHADER, vertexShaderSource);
-const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
-
+const vs = compileShader(vsSource, gl.VERTEX_SHADER);
+const fs = compileShader(fsSource, gl.FRAGMENT_SHADER);
 const program = gl.createProgram();
-gl.attachShader(program, vertexShader);
-gl.attachShader(program, fragmentShader);
+gl.attachShader(program, vs);
+gl.attachShader(program, fs);
 gl.linkProgram(program);
 gl.useProgram(program);
 
-const positionAttribLocation = gl.getAttribLocation(program, "position");
-const projectionUniformLocation = gl.getUniformLocation(program, "projection");
-const modelViewUniformLocation = gl.getUniformLocation(program, "modelView");
-const timeUniformLocation = gl.getUniformLocation(program, "time");
+const positionLoc = gl.getAttribLocation(program, "position");
+const faceIdLoc = gl.getAttribLocation(program, "faceId");
+const modelViewLoc = gl.getUniformLocation(program, "modelViewMatrix");
+const projectionLoc = gl.getUniformLocation(program, "projectionMatrix");
+const timeLoc = gl.getUniformLocation(program, "uTime");
+const wireLoc = gl.getUniformLocation(program, "uWire");
 
-// Vertex positions
-const positions = new Float32Array([
-  0, 1, 0,     // 0 top
-  -1, -1, -1,  // 1
-  1, -1, -1,   // 2
-  1, -1, 1,    // 3
-  -1, -1, 1    // 4
+// Vertex and face data (same as original)
+const vertices = new Float32Array([
+  -1,0,-1,  1,0,-1,  0,1.5,0,    // face 0
+   1,0,-1,  1,0, 1,  0,1.5,0,    // face 1
+   1,0, 1, -1,0, 1,  0,1.5,0,    // face 2
+  -1,0, 1, -1,0,-1,  0,1.5,0,    // face 3
+  -1,0,-1,  1,0,-1,  1,0, 1,     // base triangle 1
+   1,0, 1, -1,0, 1, -1,0,-1      // base triangle 2
 ]);
 
-// Wireframe indices
+const faceIds = new Float32Array([
+  0,0,0, 1,1,1, 2,2,2, 3,3,3, 4,4,4, 5,5,5
+]);
+
 const wireIndices = new Uint16Array([
-  0,1, 0,2, 0,3, 0,4,
-  1,2, 2,3, 3,4, 4,1
+  0,1, 1,2, 2,0,
+  3,4, 4,5, 5,3,
+  6,7, 7,8, 8,6,
+  9,10,10,11,11,9
 ]);
 
-// Face indices
-const faceIndices = new Uint16Array([
-  0, 1, 2,
-  0, 2, 3,
-  0, 3, 4,
-  0, 4, 1,
-  1, 2, 3,
-  1, 3, 4
-]);
-
-// Position buffer
+// Buffers
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-// Wireframe index buffer
+const faceIdBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, faceIdBuffer);
+gl.bufferData(gl.ARRAY_BUFFER, faceIds, gl.STATIC_DRAW);
+
 const wireBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireBuffer);
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, wireIndices, gl.STATIC_DRAW);
 
-// Face index buffer
-const faceBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, faceBuffer);
-gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, faceIndices, gl.STATIC_DRAW);
+// Manual matrix math (no glMatrix)
+function mat4Perspective(fov, aspect, near, far) {
+  const f = 1.0 / Math.tan(fov / 2);
+  const nf = 1 / (near - far);
+  return [
+    f / aspect, 0, 0, 0,
+    0, f, 0, 0,
+    0, 0, (far + near) * nf, -1,
+    0, 0, (2 * far * near) * nf, 0
+  ];
+}
 
-// Set up attribute pointer
-gl.enableVertexAttribArray(positionAttribLocation);
-gl.vertexAttribPointer(positionAttribLocation, 3, gl.FLOAT, false, 0, 0);
+function render(time) {
+  time *= 0.001;
 
-// Matrices
-const projectionMatrix = mat4.create();
-const modelViewMatrix = mat4.create();
-
-mat4.perspective(projectionMatrix, Math.PI / 4, canvas.width / canvas.height, 0.1, 100);
-mat4.translate(modelViewMatrix, modelViewMatrix, [0, 0, -5]);
-
-function animate(timeStamp) {
-  const timeInSeconds = timeStamp * 0.001;
-
-  gl.clearColor(0, 0, 0, 1);
+  gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-  gl.uniform1f(timeUniformLocation, timeInSeconds);
 
-  mat4.rotateY(modelViewMatrix, modelViewMatrix, 0.005);
-  gl.uniformMatrix4fv(projectionUniformLocation, false, projectionMatrix);
-  gl.uniformMatrix4fv(modelViewUniformLocation, false, modelViewMatrix);
+  const aspect = canvas.width / canvas.height;
+  const proj = mat4Perspective(Math.PI / 3, aspect, 0.1, 100);
 
-  // Flickering red faces
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, faceBuffer);
-  gl.drawElements(gl.TRIANGLES, faceIndices.length, gl.UNSIGNED_SHORT, 0);
+  const yaw = time * 0.6;
+  const pitch = Math.sin(time * 0.7) * 0.5;
+  const roll = Math.cos(time * 0.9) * 0.3;
 
-  // White wireframe overlay
+  const cy = Math.cos(yaw), sy = Math.sin(yaw);
+  const cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const cr = Math.cos(roll), sr = Math.sin(roll);
+
+  const mv = [
+    cr * cy + sr * sp * sy, sr * cp, cr * -sy + sr * sp * cy, 0,
+    -sr * cy + cr * sp * sy, cr * cp, sr * sy + cr * sp * cy, 0,
+    cp * sy, -sp, cp * cy, 0,
+    0, 0, -5, 1
+  ];
+
+  gl.uniformMatrix4fv(modelViewLoc, false, new Float32Array(mv));
+  gl.uniformMatrix4fv(projectionLoc, false, new Float32Array(proj));
+  gl.uniform1f(timeLoc, time);
+
+  // Pass 1: glitch faces
+  gl.uniform1i(wireLoc, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.enableVertexAttribArray(positionLoc);
+  gl.vertexAttribPointer(positionLoc, 3, gl.FLOAT, false, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, faceIdBuffer);
+  gl.enableVertexAttribArray(faceIdLoc);
+  gl.vertexAttribPointer(faceIdLoc, 1, gl.FLOAT, false, 0, 0);
+  gl.drawArrays(gl.TRIANGLES, 0, 18);
+
+  // Pass 2: white wireframe
+  gl.uniform1i(wireLoc, 1);
+  gl.disableVertexAttribArray(faceIdLoc);
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wireBuffer);
   gl.drawElements(gl.LINES, wireIndices.length, gl.UNSIGNED_SHORT, 0);
 
-  requestAnimationFrame(animate);
+  requestAnimationFrame(render);
 }
 
-requestAnimationFrame(animate);
+gl.enable(gl.DEPTH_TEST);
+requestAnimationFrame(render);
