@@ -1,3 +1,4 @@
+// update vh calc
 document.addEventListener("DOMContentLoaded", () => {
   console.log("menu.js loaded");
 
@@ -12,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (hamburger && menu && closeBtn) {
     hamburger.addEventListener("click", () => {
       console.log("hamburger clicked");
+      // Recalculate --vh in case browser UI height changed
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
       menu.classList.add("active");
     });
 
