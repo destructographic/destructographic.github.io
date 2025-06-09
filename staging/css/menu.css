@@ -1,10 +1,11 @@
+// didable ruberband
 /* Menu Panel */
 .slideup-menu {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   transform: translateY(100%);
   background-color: var(--charcoal);
   color: var(--white);
@@ -12,12 +13,14 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  overflow-y: auto;
-  height: calc(var(--vh, 1vh) * 100);
-  -webkit-overflow-scrolling: touch;
   padding: 1.5rem;
   z-index: 1000;
   transition: transform 0.3s ease-out;
+
+  /* Prevent scroll bounce and visual glitch */
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
 }
 
 /* Active State */
