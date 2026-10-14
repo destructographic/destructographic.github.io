@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1b1d22">
-  <title>Drug Storage – 3D Test</title>
+  <title>Drug Storage – 3D</title>
   <link rel="stylesheet" href="./style.css">
 
   <!-- Version-pinned Three.js via import map (no build step). -->
@@ -21,6 +21,7 @@
   <div id="app"></div>
 
   <div id="diagnostics" aria-live="off">Loading…</div>
+  <div id="loading" role="status">Loading model…</div>
   <div id="rotate-hint">Rotate device to landscape</div>
   <div id="error" hidden></div>
 
@@ -35,6 +36,8 @@
       p.textContent = detail || '';
       el.append(h, p);
       el.hidden = false;
+      var loading = document.getElementById('loading');
+      if (loading) loading.remove();
     };
     if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) {
       window.showError('Browser not supported', 'This page needs ES module import maps. Please update your browser.');

@@ -1,10 +1,13 @@
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createRenderer } from './renderer.js';
 import { createScene } from './scene.js';
 import { createDiagnostics } from './diagnostics.js';
 
 const MAX_PIXEL_RATIO = 2;
+const MODEL_URL = './assets/drug-storage-area.glb';
 
 const container = document.getElementById('app');
+const loading = document.getElementById('loading');
 
 let renderer;
 try {
@@ -20,7 +23,7 @@ try {
 if (renderer) start(renderer);
 
 function start(renderer) {
-  const { scene, camera, controls, update } = createScene(renderer);
+  const { scene, camera, controls, addModel } = createScene(renderer);
   const diagnostics = createDiagnostics(document.getElementById('diagnostics'), renderer);
 
   function resize() {
@@ -48,8 +51,31 @@ function start(renderer) {
     diagnostics.setStatus(null);
   });
 
+  new GLTFLoader().load(
+    MODEL_URL,
+    (gltf) => {
+      addModel(gltf.scene);
+      diagnostics.setModel(gltf.scene);
+      loading.remove();
+    },
+    (event) => {
+      const kb = Math.round(event.loaded / 1024);
+      // total is 0 when the server omits Content-Length; a gzipped
+      // response can also report loaded > total, hence the clamp.
+      loading.textContent = event.total
+        ? `Loading model… ${Math.min(100, Math.round((event.loaded / event.total) * 100))}%`
+        : `Loading model… ${kb} KB`;
+    },
+    (err) => {
+      console.error(err);
+      window.showError(
+        'Failed to load the 3D model',
+        'Could not download or read ' + MODEL_URL + '. Check your connection, then reload. (' + (err.message || err) + ')'
+      );
+    }
+  );
+
   renderer.setAnimationLoop((time) => {
-    update(time);
     controls.update();
     renderer.render(scene, camera);
     diagnostics.tick(time);

@@ -4,6 +4,7 @@ export function createDiagnostics(el, renderer) {
   const gpu = getGpuName(gl);
 
   let status = null;
+  let model = null;
   let frames = 0;
   let windowStart = 0;
   let fps = 0;
@@ -16,6 +17,7 @@ export function createDiagnostics(el, renderer) {
       `GL   ${status ? status : version + ' OK'}`,
     ];
     if (gpu) lines.push(`GPU  ${gpu}`);
+    if (model) lines.push(`Mesh ${model}`);
     el.textContent = lines.join('\n');
   }
 
@@ -36,8 +38,22 @@ export function createDiagnostics(el, renderer) {
     render();
   }
 
+  // Static counts for the loaded model (meshes, triangles).
+  function setModel(root) {
+    let meshes = 0;
+    let tris = 0;
+    root.traverse((obj) => {
+      if (!obj.isMesh) return;
+      meshes++;
+      const g = obj.geometry;
+      tris += (g.index ? g.index.count : g.attributes.position.count) / 3;
+    });
+    model = `${meshes} objects, ${tris} tris`;
+    render();
+  }
+
   render();
-  return { tick, setStatus };
+  return { tick, setStatus, setModel };
 }
 
 function getGpuName(gl) {
