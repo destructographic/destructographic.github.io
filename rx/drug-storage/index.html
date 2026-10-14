@@ -1,2 +1,54 @@
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1b1d22">
+  <title>Drug Storage – 3D Test</title>
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Version-pinned Three.js via import map (no build step). -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="diagnostics" aria-live="off">Loading…</div>
+  <div id="rotate-hint">Rotate device to landscape</div>
+  <div id="error" hidden></div>
+
+  <!-- Classic script: shows an error even if module loading itself fails. -->
+  <script>
+    window.showError = function (title, detail) {
+      var el = document.getElementById('error');
+      el.innerHTML = '';
+      var h = document.createElement('strong');
+      h.textContent = title;
+      var p = document.createElement('p');
+      p.textContent = detail || '';
+      el.append(h, p);
+      el.hidden = false;
+    };
+    if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) {
+      window.showError('Browser not supported', 'This page needs ES module import maps. Please update your browser.');
+    }
+  </script>
+
+  <script type="module">
+    import('./main.js').catch(function (err) {
+      console.error(err);
+      window.showError(
+        'Failed to load 3D modules',
+        'Could not load Three.js from the CDN. Check your connection or content blockers, then reload. (' + err.message + ')'
+      );
+    });
+  </script>
+</body>
 </html>
