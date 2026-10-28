@@ -2,6 +2,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createRenderer } from './renderer.js';
 import { createScene } from './scene.js';
 import { createDiagnostics } from './diagnostics.js';
+import { applyUniwebTextures } from './uniweb.js';
 
 const MAX_PIXEL_RATIO = 2;
 const MODEL_URL = './assets/drug-storage-area.glb';
@@ -25,6 +26,8 @@ if (renderer) start(renderer);
 function start(renderer) {
   const { scene, camera, controls, addModel } = createScene(renderer);
   const diagnostics = createDiagnostics(document.getElementById('diagnostics'), renderer);
+  // ?debug exposes the scene for console testing (e.g. material recolouring).
+  if (new URLSearchParams(location.search).has('debug')) window.viewer = { scene, camera, controls, renderer };
 
   function resize() {
     const width = container.clientWidth;
@@ -57,6 +60,13 @@ function start(renderer) {
       addModel(gltf.scene);
       diagnostics.setModel(gltf.scene);
       loading.remove();
+      // Normal maps load after the first frame; the model is usable without them.
+      applyUniwebTextures(gltf.scene, renderer)
+        .then((stats) => diagnostics.setUniweb(`${stats.meshes} panels, ${stats.files} maps`))
+        .catch((err) => {
+          console.error(err);
+          diagnostics.setUniweb('textures failed');
+        });
     },
     (event) => {
       const kb = Math.round(event.loaded / 1024);

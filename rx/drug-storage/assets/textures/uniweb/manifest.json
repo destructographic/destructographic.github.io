@@ -1,0 +1,47 @@
+{
+  "generator": "uniweb_textures.py",
+  "units": "inches",
+  "normal_convention": "OpenGL (+Y green up); image top = panel top",
+  "px_per_inch": 16,
+  "height_in": 84.0,
+  "textures": [
+    {
+      "name": "wall-32",
+      "kind": "wall",
+      "width_in": 32.0,
+      "height_in": 84.0,
+      "file": "wall-32.png",
+      "lip_edges": []
+    },
+    {
+      "name": "wall-48",
+      "kind": "wall",
+      "width_in": 48.0,
+      "height_in": 84.0,
+      "file": "wall-48.png",
+      "lip_edges": []
+    },
+    {
+      "name": "endcap-17.5",
+      "kind": "endcap",
+      "width_in": 17.5,
+      "height_in": 84.0,
+      "file": "endcap-17.5.png",
+      "lip_edges": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "name": "endcap-25.5",
+      "kind": "endcap",
+      "width_in": 25.5,
+      "height_in": 84.0,
+      "file": "endcap-25.5.png",
+      "lip_edges": [
+        "left",
+        "right"
+      ]
+    }
+  ]
+}

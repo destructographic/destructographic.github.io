@@ -5,6 +5,7 @@ export function createDiagnostics(el, renderer) {
 
   let status = null;
   let model = null;
+  let uniweb = null;
   let frames = 0;
   let windowStart = 0;
   let fps = 0;
@@ -18,6 +19,7 @@ export function createDiagnostics(el, renderer) {
     ];
     if (gpu) lines.push(`GPU  ${gpu}`);
     if (model) lines.push(`Mesh ${model}`);
+    if (uniweb) lines.push(`Tex  ${uniweb}`);
     el.textContent = lines.join('\n');
   }
 
@@ -52,8 +54,13 @@ export function createDiagnostics(el, renderer) {
     render();
   }
 
+  function setUniweb(value) {
+    uniweb = value;
+    render();
+  }
+
   render();
-  return { tick, setStatus, setModel };
+  return { tick, setStatus, setModel, setUniweb };
 }
 
 function getGpuName(gl) {
