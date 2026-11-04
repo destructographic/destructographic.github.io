@@ -18,8 +18,8 @@ blender -b --python-exit-code 1 -P export_glb.py -- \
 - Units: 1 glTF unit = 1 inch (not metres). The viewer does not rescale; the
   camera, clipping planes, controls and shadow are fitted to the model bounds.
 - Axes: Y-up (the exporter converts from Blender Z-up).
-- 67 flat, named `Vis3D_*` mesh nodes, 3 untextured materials, 1026 triangles,
-  about 83 KB.
+- 92 flat, named `Vis3D_*` mesh nodes (67 room/fixture + 25 millwork caps),
+  28 untextured materials, 1800 triangles, about 147 KB.
 - Initial view and sun direction match `camera.py` and `TO_SUN` in
   drug-storage-temp, so the first frame resembles `render/latest.png`
   (perspective here, orthographic there).
@@ -41,3 +41,18 @@ parameters). `uniweb.js` applies them after the model loads:
   `material.color` can be changed per mesh, e.g. for a yellow hover.
 - `NORMAL_SCALE` and `PAINT` at the top of `uniweb.js` tune strength and finish.
 - `?debug` exposes `window.viewer` (`scene`, `camera`, `controls`, `renderer`).
+
+## Millwork caps
+
+25 `Vis3D_Cap_*` meshes, one per Uniweb panel (`Vis3D_Cap_Back_P3`,
+`Vis3D_Cap_Fixture_D_P2`, …), built by drug-storage-temp `build_model.py`.
+Each has its own wood-tan `MeshStandardMaterial` (`cap_<run>_P<n>`), so
+`material.color` can be changed per segment. `userData` (glTF extras) links
+each one to its panel and bases:
+
+- `cap_panel`, `cap_panel_index`, `cap_panel_count`: the Uniweb panel mesh.
+  Fixtures D, F and G have one panel mesh per run, so the index and
+  `cap_panel_range_in` (plan inches along `cap_axis`) select the panel within it.
+- `cap_bases`: comma-separated base mesh names; `cap_run`, `cap_segment`.
+
+The names do not match `uniweb.js` patterns, so caps are untextured. No viewer code changed.
