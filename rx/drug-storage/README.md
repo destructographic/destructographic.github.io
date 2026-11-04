@@ -19,7 +19,7 @@ blender -b --python-exit-code 1 -P export_glb.py -- \
   camera, clipping planes, controls and shadow are fitted to the model bounds.
 - Axes: Y-up (the exporter converts from Blender Z-up).
 - 92 flat, named `Vis3D_*` mesh nodes (67 room/fixture + 25 millwork caps),
-  28 untextured materials, 1800 triangles, about 147 KB.
+  28 untextured materials, 1684 triangles, about 141 KB.
 - Initial view and sun direction match `camera.py` and `TO_SUN` in
   drug-storage-temp, so the first frame resembles `render/latest.png`
   (perspective here, orthographic there).
@@ -45,7 +45,8 @@ parameters). `uniweb.js` applies them after the model loads:
 ## Millwork caps
 
 25 `Vis3D_Cap_*` meshes, one per Uniweb panel (`Vis3D_Cap_Back_P3`,
-`Vis3D_Cap_Fixture_D_P2`, …), built by drug-storage-temp `build_model.py`.
+`Vis3D_Cap_Fixture_D_P2`, …), built by drug-storage-temp `build_model.py`:
+hollow 3 × 3 in channels on fixtures, solid-backed L sections on the walls.
 Each has its own wood-tan `MeshStandardMaterial` (`cap_<run>_P<n>`), so
 `material.color` can be changed per segment. `userData` (glTF extras) links
 each one to its panel and bases:
