@@ -18,8 +18,8 @@ blender -b --python-exit-code 1 -P export_glb.py -- \
 - Units: 1 glTF unit = 1 inch (not metres). The viewer does not rescale; the
   camera, clipping planes, controls and shadow are fitted to the model bounds.
 - Axes: Y-up (the exporter converts from Blender Z-up).
-- 105 flat, named `Vis3D_*` mesh nodes (67 room/fixture + 38 millwork caps),
-  41 untextured materials, 1970 triangles, about 170 KB.
+- 131 flat, named `Vis3D_*` mesh nodes (67 room/fixture + 64 millwork caps),
+  67 untextured materials, 2126 triangles, about 212 KB.
 - Initial view and sun direction match `camera.py` and `TO_SUN` in
   drug-storage-temp, so the first frame resembles `render/latest.png`
   (perspective here, orthographic there).
@@ -51,6 +51,9 @@ Plus 13 endcap trims, `Vis3D_Cap_Fixture_<X>_Trim_<XNeg|XPos>`, with
 `cap_kind: "endcap_trim"`, `cap_endcap` (endcap mesh), `cap_joins` (run segment)
 and the same `cap_panel`/`cap_panel_index` as that segment, so a panel highlight
 can include its trim. Run segments have `cap_kind: "run"`.
+26 concealment blocks, `<trim>_Block_<YNeg|YPos>`, close both open trim ends:
+`cap_kind: "concealment_block"`, `cap_trim`, `cap_block_end`, and the same
+panel/base/endcap/joins data as their trim.
 Each has its own wood-tan `MeshStandardMaterial` (`cap_<run>_P<n>`), so
 `material.color` can be changed per segment. `userData` (glTF extras) links
 each one to its panel and bases:
